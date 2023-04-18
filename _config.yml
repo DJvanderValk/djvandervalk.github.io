@@ -1,0 +1,11 @@
+# Site settings
+title: Dennis van der Valk CV
+email: dennisvdvalk@hotmail.com
+description: Mijn CV
+baseurl: /
+url: http://djvandervalk.github.io
+github_username: djvandervalk
+
+# Build settings
+markdown: kramdown
+permalink: /:year/:title:output_ext
