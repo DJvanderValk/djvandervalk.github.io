@@ -1,0 +1,19 @@
+{
+  "about": "Over",
+  "dark": "Donker",
+  "drawing": "Tekenen",
+  "home": "Home",
+  "language": "Taal",
+  "light": "Licht",
+  "logout": "Uitloggen",
+  "map": "Map",
+  "newVersionIsAvailable": "Een nieuwe versie is beschikbaar",
+  "pageWithPathNotFound": "De pagina {{path}} kan niet gevonden worden",
+  "profile": "Profiel",
+  "settings": "Instellingen",
+  "system": "Systeem",
+  "tableOfContent": "Inhoudsopgave",
+  "theme": "Thema",
+  "welcome": "Welkom",
+  "whatsNew": "Wat is nieuw?"
+}
