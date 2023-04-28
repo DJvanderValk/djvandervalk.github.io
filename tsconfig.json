@@ -8,30 +8,6 @@
     "jsx": "react",
     "allowJs": true,
     "checkJs": false,
-    "moduleResolution": "node",
-    "paths": {
-      "~assets*": ["./src/assets*"],
-      "~atoms": ["./src/atoms/index.ts"],
-      "~atoms*": ["./src/atoms*"],
-      "~components": ["./src/components/index.ts"],
-      "~components*": ["./src/components*"],
-      "~constants": ["./src/constants/index.ts"],
-      "~constants*": ["./src/constants*"],
-      "~docs*": ["./docs*"],
-      "~enums": ["./src/enums/index.ts"],
-      "~enums*": ["./src/enums*"],
-      "~features": ["./src/features/index.ts"],
-      "~features*": ["./src/features*"],
-      "~hooks": ["./src/hooks/index.ts"],
-      "~hooks*": ["./src/hooks*"],
-      "~layouts": ["./src/layouts/index.ts"],
-      "~layouts*": ["./src/layouts*"],
-      "~pages": ["./src/pages/index.ts"],
-      "~pages*": ["./src/pages*"],
-      "~services": ["./src/services/index.ts"],
-      "~services*": ["./src/services*"],
-      "~utils": ["./src/utils/index.ts"],
-      "~utils*": ["./src/utils*"]
-    }
+    "moduleResolution": "node"
   }
 }

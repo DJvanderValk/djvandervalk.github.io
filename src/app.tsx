@@ -1,10 +1,14 @@
 import * as React from 'react';
 
+import { Paper, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import {
 	Route,
 	Routes
 } from 'react-router-dom';
+
+import HomePage from './pages/home/homePage';
+import AppTheme from './themes/theme';
 
 import './app.css';
 
@@ -13,9 +17,11 @@ import './app.css';
  */
 const App = () => {
 	return (
-		<div className='app'>
-			Hoi
-		</div>
+		<ThemeProvider theme={AppTheme()}>
+			<div className='app'>
+				<HomePage />
+			</div>
+		</ThemeProvider>
 	);
 };
 

@@ -19,10 +19,10 @@ module.exports = (env) => ({
 	module: {
 		rules: [
 			{
-        test: /\.ts|tsx?$/,
-        loader: 'ts-loader',
-        include: path.resolve(__dirname, 'src')
-      },
+				test: /\.ts|tsx?$/,
+				loader: 'ts-loader',
+				include: path.resolve(__dirname, 'src')
+			},
 			{
 				test: /\.js?$/,
 				loader: 'babel-loader',
@@ -56,6 +56,10 @@ module.exports = (env) => ({
 				test: /\.md$/,
 				type: 'asset/source',
 				include: path.resolve(__dirname, 'docs'),
+			},
+			{
+				test: /\.ya?ml$/,
+				use: 'yaml-loader'
 			}
 		]
 	},
