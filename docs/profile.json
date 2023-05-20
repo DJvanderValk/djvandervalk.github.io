@@ -1,0 +1,90 @@
+{
+	"firstName": "Dennis",
+	"lastname": "van der Valk",
+	"tagline": "Full Stack Developer",
+	"dateOfBirth": "1993-04-25",
+	"address": {
+		"city": "Den Haag"
+	},
+	"citizenship": "dutch",
+	"gender": "male",
+	"phoneNumber": "+31 6 30926100",
+	"mail": "dennisvdvalk@hotmail.com",
+	"github": "djvandervalk",
+	"languages": [
+		{
+			"key": "dutch",
+			"level": "native"
+		},
+		{
+			"key": "english",
+			"level": "fluent"
+		},
+		{
+			"key": "german",
+			"level": "intermediate"
+		},
+		{
+			"key": "spanish",
+			"level": "basic"
+		}
+	],
+	"interests": [
+		"waveSurfing",
+		"kiteSurfing",
+		"snowboarding",
+		"football",
+		"boardgames"
+	],
+	"technicalSkills": {
+		"info": [
+			{
+				"key": "Javascript/Typescript",
+				"level": 0.9
+			},
+			{
+				"key": "HTML",
+				"level": 0.7
+			},
+			{
+				"key": "CSS",
+				"level": 0.7
+			},
+			{
+				"key": "C#",
+				"level": 0.6
+			},
+			{
+				"key": "SQL",
+				"level": 0.5
+			},
+			{
+				"key": "C",
+				"level": 0.5
+			},
+			{
+				"key": "Python",
+				"level": 0.4
+			},
+			{
+				"key": "C++",
+				"level": 0.3
+			}
+		],
+		"keywords": [
+			"React",
+			"Webpack",
+			"PWA",
+			"Jest",
+			"Kubernetes",
+			"JSON",
+			"YAML",
+			"XML",
+			"WPF",
+			"XAML",
+			"PostgreSQL",
+			"MariaDB",
+			"Node.js"
+		]
+	}
+}

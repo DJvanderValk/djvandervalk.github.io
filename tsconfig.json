@@ -8,6 +8,18 @@
     "jsx": "react",
     "allowJs": true,
     "checkJs": false,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "~assets*": ["./src/assets*"],
+      "~components": ["./src/components/index.ts"],
+      "~components*": ["./src/components*"],
+      "~constants": ["./src/constants/index.ts"],
+      "~constants*": ["./src/constants*"],
+      "~docs*": ["./docs*"],
+      "~enums": ["./src/enums/index.ts"],
+      "~enums*": ["./src/enums*"],
+      "~pages": ["./src/pages/index.ts"],
+      "~pages*": ["./src/pages*"]
+    }
   }
 }

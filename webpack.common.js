@@ -76,6 +76,14 @@ module.exports = (env) => ({
 		})
 	],
 	resolve: {
+		alias: {
+			'~assets': path.resolve(__dirname, 'src', 'assets'),
+			'~components': path.resolve(__dirname, 'src', 'components'),
+			'~constants': path.resolve(__dirname, 'src', 'constants'),
+			'~docs': path.resolve(__dirname, 'docs'),
+			'~enums': path.resolve(__dirname, 'src', 'enums'),
+			'~pages': path.resolve(__dirname, 'src', 'pages'),
+		},
 		extensions: ['.tsx', '.ts', '.js'],
 		fallback: {
 			path: require.resolve('path-browserify')

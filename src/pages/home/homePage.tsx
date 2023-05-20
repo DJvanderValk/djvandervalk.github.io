@@ -3,54 +3,61 @@ import * as React from 'react';
 import {
 	Cake as CakeIcon,
 	Construction as ConstructionIcon,
-	Fingerprint as FingerprintIcon,
+	Flag as FlagIcon,
 	GitHub as GitHubIcon,
 	Home as HomeIcon,
+	LocalLibrary as LocalLibraryIcon,
 	Mail as MailIcon,
 	Person as PersonIcon,
 	Phone as PhoneIcon,
+	Public as PublicIcon,
 	School as SchoolIcon,
 	Wc as WcIcon,
 	Work as WorkIcon
 } from '@mui/icons-material';
 import {
 	Box,
-	Container,
 	Grid,
-	Icon,
 	LinearProgress,
 	Link,
 	Paper,
 	Stack,
-	SvgIcon,
 	Typography,
 	useTheme
 } from '@mui/material';
+import i18next from 'i18next';
+import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
-import LanguageSelect from '../../components/select/languageSelect';
-import ThemeSwitch from '../../components/switch/themeSwitch';
 import personalInformation from '../../constants/personalInformation';
+import {
+	DownloadAsPdfButton,
+	LanguageSelect,
+	ThemeSwitch
+} from '~components';
 
-const contentInSidePanel = [
-	'profile',
-	'languages',
-	'interests',
-	'skills'
-];
-
-const contentInMainPanel = [
-	'careerProfile',
-	'workingExperience',
-	'education',
-	'courses',
-	'otherExperiences'
-];
+interface PropsProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+	id: string
+}
 
 const HomePage = () => {
 	const { t } = useTranslation('general');
-	
 	const theme = useTheme();
+
+	const [resumeFile, setResumeFile] = React.useState(null);
+
+	React.useEffect(() => {
+		loadFile();
+	}, []);
+
+	const loadFile = async () => {
+		try {
+			const file = await import(`~docs/resume_experience_${i18next.language}.md`);
+			setResumeFile(file.default);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const profile = [
 		{
@@ -58,7 +65,7 @@ const HomePage = () => {
 			icon: <CakeIcon fontSize='small' />
 		},
 		{ key: personalInformation.profile.address.city, icon: <HomeIcon fontSize='small' /> },
-		{ key: t(personalInformation.profile.citizenship), icon: <FingerprintIcon fontSize='small' /> },
+		{ key: t(personalInformation.profile.citizenship), icon: <FlagIcon fontSize='small' /> },
 		{ key: t(personalInformation.profile.gender), icon: <WcIcon fontSize='small' /> },
 		{
 			key: t(personalInformation.profile.phoneNumber),
@@ -75,75 +82,90 @@ const HomePage = () => {
 			icon: <GitHubIcon fontSize='small' />,
 			href: `https://github.com/${personalInformation.profile.github}`
 		}
-	]
-
-	const mainPanelHeader = (title: string, icon: any) => {
-		return (
-			<Stack direction='row' alignItems='center' spacing={1}>
-				{icon}
-				<Typography variant='h2'>{title}</Typography>
-			</Stack>
-		);
-	};
+	];
+	
+	const headerMapping = {
+		'career-profile': {
+			key: 'careerProfile',
+			icon: <PersonIcon />
+		},
+		'working-experience': {
+			key: 'workingExperience',
+			icon: <WorkIcon />
+		},
+		'education': {
+			key: 'education',
+			icon: <SchoolIcon />
+		},
+		'courses': {
+			key: 'courses',
+			icon: <LocalLibraryIcon />
+		},
+		'other-experiences': {
+			key: 'otherExperiences',
+			icon: <PublicIcon />
+		},
+	}
 
 	const mainPanel = (
-		<Stack spacing={4}>
-			{personalInformation.careerProfile &&
-				<Box>
-					{mainPanelHeader(t('careerProfile'), <PersonIcon />)}
-					<Typography variant='body1'>
-						{t(personalInformation.careerProfile.details)}
-					</Typography>
-				</Box>
-			}
-
-			{personalInformation.workingExperience &&
-				<Box>
-					{mainPanelHeader(t('workingExperience'), <WorkIcon />)}
-					<Stack spacing={5}>
-						{personalInformation.workingExperience.info.map((el, i) =>
-							<Box key={i}>
-								<Box display='flex' justifyContent='space-between'>
-									<Typography variant='body1'>{t(el.role)}</Typography>
-									<Typography variant='body1' color='lightgray'>
-										{`${t(el.dateStart)} - ${t(el.dateEnd)}`}
+		<>
+			{resumeFile &&
+				<Markdown
+					options={{
+						createElement(tag: string, props: any, children) {
+							console.log(tag, props, children)
+							if(tag === 'h1') {
+								return;
+							} else if(tag === 'h2') {
+								return (
+									<Stack spacing={1} direction='row' pt='30px' pb='10px'>
+										{headerMapping[props.id as keyof typeof headerMapping].icon}
+										<Typography variant={tag} color='primary'>
+											{children}
+										</Typography>
+									</Stack>
+								);
+							} else if(tag === 'h3') {
+								return (
+									<Typography {...props} variant={tag} color='secondary' pt='20px' pb='10px'>
+										{children}
 									</Typography>
-								</Box>
-								<Typography variant='body1'>
-									{`${el.company}, ${el.location.city}${el.location.country ? ` (${t(el.location.country)})` : ''}`}
-								</Typography>
-								<Typography variant='body1'>{t(el.details)}</Typography>
-							</Box>
-						)}
-					</Stack>
-				</Box>
-			}
-
-			{personalInformation.education &&
-				<Box>
-					{mainPanelHeader(t('education'), <SchoolIcon />)}
-					<Stack spacing={2}>
-						{personalInformation.education.info.map((el, i) =>
-							<Box key={i}>
-								<Box display='flex' justifyContent='space-between'>
-									<Typography variant='body1'>{t(el.degree)}</Typography>
-									<Typography variant='body1'>
-										{`${t(el.dateStart)} - ${t(el.dateEnd)}`}
+								);
+							} else if(tag === 'p') {
+								return (
+									<Typography {...props} variant='body1'>
+										{children}
 									</Typography>
-								</Box>
-								<Typography variant='body1'>
-									{`${el.university}, ${el.location.city}`}
-								</Typography>
-								<Typography variant='body1'>{t(el.details)}</Typography>
-							</Box>
-						)}
-					</Stack>
-				</Box>
-			}
+								);
+							} else if(tag === 'ul' && Array.isArray(children)) {
+								return (
+									<Box component='ul' pl='16px'>
+										{children.map(el => 
+											<Typography {...el.props} component='li'>
+												{el.props.children[0]}
+											</Typography>
+										)}
+									</Box>
+								);
+							}
 
+							return React.createElement(tag, props, children);
+						}
+					}}
+				>
+					{resumeFile}
+				</Markdown>
+			}
+		</>
+	);
+
+	const mainPanel2 = (
+		<Stack id='resume-main-content' spacing={3}>
 			{personalInformation.skills &&
 				<Box>
-					{mainPanelHeader(t('skills'), <ConstructionIcon />)}
+					<Typography variant='h2' display='flex' alignItems='center'>
+						<ConstructionIcon sx={{ mr: '16px' }} /> {t('skills')}
+					</Typography>
 					<Stack>
 						{personalInformation.skills.info.map(el =>
 							<Box
@@ -173,25 +195,33 @@ const HomePage = () => {
 			display='flex'
 			flexDirection='column'
 			alignItems='center'
-			color='white'
+			color='textPrimary'
 		>
-			<Typography variant='h1'>
-				{personalInformation.profile.name}
+			<Typography variant='h1' display={{ xs: 'block', sm: 'block', md: 'none' }}>
+				{`${personalInformation.profile.firstName} ${personalInformation.profile.lastName}`}
 			</Typography>
-			<Typography variant='subtitle2' color='lightgray'>
+			<Stack display={{ xs: 'none', sm: 'none', md: 'block' }}>
+				<Typography variant='h1' display='flex' justifyContent='center'>
+					{personalInformation.profile.firstName}
+				</Typography>
+				<Typography variant='h1' display='flex' justifyContent='center'>
+					{personalInformation.profile.lastName}
+				</Typography>
+			</Stack>
+			<Typography variant='subtitle1' color='textSecondary'>
 				{personalInformation.profile.tagline}
 			</Typography>
 		</Box>
 	);
 
 	const sidePanel = (
-		<Stack spacing={4} color='white'>
+		<Stack spacing={3} color='white'>
 			<Box>
 				{profile.map((el, i) =>
-					<Stack spacing={2} direction='row'>
+					<Stack spacing={2} direction='row' alignItems='center'>
 						{el.icon}
 						{el.href ?
-							<Link 
+							<Link
 								color='inherit'
 								variant='body1'
 								underline='hover'
@@ -220,7 +250,7 @@ const HomePage = () => {
 					{personalInformation.languages.map(el =>
 						<Stack key={el.key} direction='row' spacing={1}>
 							<Typography variant='body1'>{t(el.key)}</Typography>
-							<Typography variant='body1' color='lightgray'>({t(el.level)})</Typography>
+							<Typography variant='body1' color='textSecondary'>({t(el.level)})</Typography>
 						</Stack>
 					)}
 				</Box>
@@ -228,75 +258,78 @@ const HomePage = () => {
 		</Stack>
 	);
 
-	const panels = (
-		<Grid container direction='row-reverse'>
-			<Grid
-				container item
-				direction='column'
-				xs={12} sm='auto'
-			>
-				<Grid
-					item
-					bgcolor='#2596be'
-					padding='30px'
-				>
-					{headerPanel}
-				</Grid>
-				<Grid
-					item
-					bgcolor='#42a8c0'
-					padding='30px'
-					xs
-				>
-					{sidePanel}
-				</Grid>
-			</Grid>
-			<Grid
-				item
-				xs={12} sm
-				// bgcolor='white'
-				padding={{ xs: '18px', sm: '30px', md: '60px' }}
-			>
-				{mainPanel}
-			</Grid>
-		</Grid>
-	)
-
 	return (
 		<Box
 			display='flex'
-			flexDirection='column'
-			alignItems='center'
-			// bgcolor='black'
-			// bgcolor='whitesmoke'
+			justifyContent='center'
 			bgcolor={theme.palette.background.default}
-			minHeight='100vh'
-			width='100vw'
-			boxSizing='border-box'
+			width='100%' height='100%'
+			sx={{ overflowX: 'hidden' }}
 			padding={{ xs: 0, sm: 0, md: '30px' }}
+			boxSizing='border-box'
 		>
-			<Paper
-				sx={{
-					maxWidth: '1100px',
-					width: '100%',
-					height: '100%'
-				}}
-			>
-				{panels}
-			</Paper>
-			<Stack
-				display='flex'
-				justifyContent='flex-end'
-				maxWidth='1100px'
-				width='100%'
-				padding='18px'
-				spacing={2}
-				direction='row'
-				boxSizing='border-box'
-			>
-				<ThemeSwitch />
-				<LanguageSelect variant='standard' />
-			</Stack>
+			<Box maxWidth='1100px' height='fit-content' overflow='hidden'>
+				<Paper
+					id='resume-content'
+					elevation={3}
+					sx={{
+						overflow: 'hidden',
+						borderRadius: { xs: 0, sm: 0, md: '8px' }
+					}}
+				>
+					<Grid container direction='row-reverse' >
+						<Grid
+							container item
+							direction='column'
+							xs sm md='auto'
+						>
+							<Grid item bgcolor='#096537' padding='30px'>
+								{headerPanel}
+							</Grid>
+							<Grid item bgcolor='#177e4b' padding='30px' xs>
+								{sidePanel}
+							</Grid>
+						</Grid>
+						<Grid
+							item
+							xs sm
+							paddingX={{ xs: '18px' }}
+							paddingY={{ xs: '40px' }}
+							padding={{ sm: '30px', md: '60px' }}
+						>
+							{mainPanel}
+						</Grid>
+					</Grid>
+				</Paper>
+				<Stack
+					display='flex'
+					justifyContent='space-between'
+					maxWidth='1100px'
+					width='100%'
+					padding='18px'
+					spacing={2}
+					direction='row'
+					boxSizing='border-box'
+				>
+					<DownloadAsPdfButton />
+					<Stack
+						spacing='inherit'
+						direction='row'
+					>
+						<LanguageSelect variant='standard' />
+						<ThemeSwitch />
+					</Stack>
+					{/* <div id='henk'>
+						<h2>Testings</h2>
+						<p>
+							Henk dsf falkf jksdfj lkafjksajf lkasjflkasjf lkajdflk jafkja lkfjkls afjlkas jfkajfajlska
+							jafkl jflajflkjakjflka jfalkj fkajflkajfklajfkj alkfdjd dfaljf klajdfkajlkfaj lkdjjf la
+							kjflakjflak jf lkajflk ajklfj adklaj fkla jfklajdkf jaljflakjfalkd jflkjfkljalkfjalkjfl
+							kajdfj alkjflk ajd kfljalkdfjlkajlkajkfljakjflkdajflkj fsf
+						</p>
+					</div> */}
+				</Stack>
+			</Box>
 		</Box>
 	);
 };

@@ -9,7 +9,7 @@ const darkTheme: ThemeOptions = {
 			dark: '#42a5f5',
 		},
 		secondary: {
-			main: '#ce93d8',
+			main: '#FF6666',
 			light: '#f3e5f5',
 			dark: '#ab47bc',
 		},
@@ -19,6 +19,7 @@ const darkTheme: ThemeOptions = {
 		},
 		text: {
 			primary: '#ffffff',
+			secondary: 'rgba(255, 255, 255, 0.7)'
 		},
 	}
 };

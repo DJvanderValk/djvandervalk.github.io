@@ -1,6 +1,7 @@
 const personalInformation = {
 	profile: {
-		name: 'Dennis van der Valk',
+		firstName: 'Dennis',
+		lastName: 'van der Valk',
 		tagline: 'Full Stack Developer',
 		dateOfBirth: '1993-04-25T15:30:00Z',
 		address: {
@@ -85,7 +86,7 @@ const personalInformation = {
 		]
 	},
 	careerProfile: {
-		details: 'bla bla'
+		details: 'careerProfileDetails'
 	},
 	workingExperience: {
 		info: [
@@ -97,7 +98,8 @@ const personalInformation = {
 				},
 				dateStart: '2021-01',
 				dateEnd: 'presentDay',
-				details: 'Bla'
+				details: 'spieSoftwareDeveloperDetails',
+				tasks: 'spieSoftwareDeveloperTasks'
 			},
 			{
 				role: 'systemEngineer',
@@ -107,7 +109,8 @@ const personalInformation = {
 				},
 				dateStart: '2019-06',
 				dateEnd: '2021-01',
-				details: 'systemEngineerDetails'
+				details: 'systemEngineerDetails',
+				// tasks: 'systemEngineerTasks'
 			},
 			{
 				role: 'waiter',
@@ -129,6 +132,24 @@ const personalInformation = {
 				dateStart: '2016-12',
 				dateEnd: '2017-03',
 				details: 'snowboardTeacherDetails'
+			},
+			{
+				role: 'scholar',
+				company: 'Deerns',
+				location: {
+					city: 'Vierpolders'
+				},
+				dateStart: '2005',
+				dateEnd: '2014'
+			},
+			{
+				role: 'scholar',
+				company: 'Fa. Gebr. van der Valk',
+				location: {
+					city: 'Vierpolders'
+				},
+				dateStart: '2005',
+				dateEnd: '2014'
 			}
 		]
 	},
@@ -146,12 +167,35 @@ const personalInformation = {
 			}
 		]
 	},
-	courses: [
-		'filler'
-	],
-	otherExperiences: [
-		'filler'
-	]
+	courses: {
+		info: [
+			{
+				provider: 'SPIE',
+				degree: 'Young Spie Professional Program',
+				date: '2020',
+				details: 'youngSpieProfDetails'
+			},
+			{
+				provider: 'IBEX',
+				degree: 'VOL-VCA',
+				date: '2016-06'
+			}
+		]
+	},
+	otherExperiences: {
+		info: [
+			{
+				details: 'southAmericaDetails',
+				dateStart: '2018-11',
+				dateEnd: '2019-03'
+			},
+			{
+				details: 'southEastAsiaDetails',
+				dateStart: '2017-12',
+				dateEnd: '2018-04'
+			}
+		]
+	}
 };
 
 export default personalInformation;
