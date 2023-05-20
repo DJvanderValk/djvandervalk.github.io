@@ -3,6 +3,12 @@
   "basic": "Basis",
   "boardGames": "Bordspellen",
   "careerProfile": "Carriere profiel",
+  "careerProfileDetails": "Een software developer met een achtergrond in het programmeren van embedded systems. Met ervaring in backend en frontend applicaties in het bezit aan brede kennis. Expertise en extra interesse in (geometrische) wiskunden en algoritmes.",
+  "diaflowMaintenanceDetails": "Het leveren van support aan de klant bij fouten, problemen en wensen bij een bestaande applicatie.",
+  "diaflowRenewingDetails": "Het vernieuwen van een applicatie gebaseerd op JQuery naar React.",
+  "diatwinFrontendDrawingDetails": "Het opzetten van een 3D Engine om geometrische objecten te tekenen en te projecteren op dieptemappen.",
+  "diatwinScanImporterDetails": "Het opzetten van een desktop applicatie die puntenwolk bestanden omzet naar kleurenafbeeldingen, dieptemappen en overige geprojecteerde afbeeldingen.",
+  "diatwinKubernetesDetails": "Het onderzoeken en opzetten van een experimenteel Raspberry PI Kubernetes cluster.",
   "dutch": "Nederlands",
   "education": "Opleidingen",
   "electricalEngineering": "Elektrotechniek",
@@ -21,12 +27,21 @@
   "snowboarding": "Snowboarden",
   "snowboardTeacher": "Snowboard leraar",
   "snowboardTeacherDetails": "Snowboard les geven aan beginners en gevorderden",
-  "softwareDeveloper": "Software developer",
+  "softwareDeveloper": "Software Developer",
+  "spieSoftwareDeveloperDetails": "TODO",
+  "spieSoftwareDeveloperTasks": [
+    "Het opzetten van een desktop applicatie die puntenwolk bestanden omzet naar kleurenafbeeldingen, dieptemappen en overige geprojecteerde afbeeldingen.",
+    "Het opzetten van een 3D Engine om geometrische objecten te tekenen en te projecteren op dieptemappen.",
+    "Het onderzoeken en opzetten van een experimenteel Raspberry PI Kubernetes cluster.",
+    "Het leveren van support aan de klant bij fouten, problemen en wensen bij een bestaande applicatie.",
+    "Het vernieuwen van een applicatie gebaseerd op JQuery naar React."
+  ],
   "spanish": "Spaans",
   "systemEngineer": "System Engineer",
   "systemEngineerDetails": "TODO",
   "waiter": "Ober",
   "waiterDetails": "Seizoensgebonden server van eten en drinken, het opzetten en ondersteunen van evenementen en het onderhouden van het paviljoen.",
   "waveSurfing": "Golfsurfen",
-  "workingExperience": "Werk ervaring"
+  "workingExperience": "Werk ervaring",
+  "youngSpieProfDetails": "Een 10-delige cursus voor het verbeteren van je management- en softskills."
 }
