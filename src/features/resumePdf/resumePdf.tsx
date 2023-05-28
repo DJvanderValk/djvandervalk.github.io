@@ -41,7 +41,6 @@ import AppTheme from '../../themes/theme';
 
 const ResumePdf = () => {
 	const { t } = useTranslation('general');
-	const theme = useTheme();
 
 	const [resumeFile, setResumeFile] = React.useState(null);
 
@@ -124,11 +123,8 @@ const ResumePdf = () => {
 				justifyContent='center'
 				width='100%'
 			>
-				<Typography variant='h1'>
-					{personalInformation.profile.firstName}
-				</Typography>
-				<Typography variant='h1'>
-					{personalInformation.profile.lastName}
+				<Typography variant='h1' fontSize='1.5rem'>
+					{`${personalInformation.profile.firstName} ${personalInformation.profile.lastName}`}
 				</Typography>
 			</Stack>
 			<Typography variant='subtitle1' color='textSecondary' pt='8px'>
@@ -138,7 +134,7 @@ const ResumePdf = () => {
 	);
 
 	const sidePanel = (
-		<Stack spacing={4}>
+		<Stack spacing={3}>
 			<Box>
 				{profile.map((el, i) =>
 					<Typography variant='body1'>{el.key}</Typography>

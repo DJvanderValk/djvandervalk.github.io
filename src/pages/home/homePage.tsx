@@ -130,6 +130,7 @@ const HomePage = () => {
 				alignItems='center'
 				justifyContent='center'
 				width='100%'
+				color='white'
 			>
 				<Typography variant='h1' pr={{ xs: '10px', sm: 0 }}>
 					{personalInformation.profile.firstName}
@@ -386,7 +387,7 @@ const HomePage = () => {
 					direction='row'
 					boxSizing='border-box'
 				>
-					<DownloadAsPdfButton visible={false} />
+					<DownloadAsPdfButton visible={true} />
 					<Stack
 						spacing='inherit'
 						direction='row'

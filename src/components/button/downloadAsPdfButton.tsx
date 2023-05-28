@@ -26,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { ResumePdf } from '~features';
 
 import AppTheme from '../../themes/theme';
+import { createRoot } from 'react-dom/client';
 
 interface DownloadAsPdfButtonProps extends ButtonProps {
 	visible: boolean
@@ -38,47 +39,26 @@ const DownloadAsPdfButton = (props: DownloadAsPdfButtonProps) => {
 		const doc = new jsPDF(
 			'portrait', 'px', 'a4'
 		);
-		console.log(doc.internal)
-		// doc.setFont("courier", "normal");
-		// doc.setTextColor('#ffffff')
 		
-		// const bla = (
-		// 	<ThemeProvider theme={AppTheme('light')}>
-		// 		<ResumePdf />
-		// 	</ThemeProvider>
-		// );
-		const bla = (
-			<Box style={{ width: '1920px' }}>
+		const pdfEl = document.getElementById('pdf');
+		const pdfRoot = createRoot(pdfEl);
+		pdfRoot.render(
+			<Box style={{ width: '1080px' }}>
 				<ResumePdf />
 			</Box>
 		);
 		
-		// const bla2 = renderToStaticMarkup(bla);
-		const bla2 = renderToString(bla);
-		
-		const root = document.getElementById('root');
-		root.innerHTML = bla2;
-		return;
-		
-		// const content = document.getElementById('resume-content');
-		
-		// const buttons = content.getElementsByTagName('button');
-		// console.log(buttons)
-		// for(let i=0; i < buttons.length; i++) {
-		// 	buttons[i].parentNode.removeChild(buttons[i]);
-		// }
-		
-		doc.html(bla2, {
+		doc.html(pdfEl, {
 			callback: () => {
-				doc.save('test.pdf');
+				doc.save('resume-dennisvdvalk.pdf');
 			},
-			// html2canvas: { width: 1080, height: 1920, scale: 0.43, backgroundColor: '#cdcdcd' },
+			html2canvas: { width: 1080, scale: 0.43 },
 			// margin: [10, 10, 10, 10],
 			autoPaging: 'text',
 			x: 0,
 			y: 0,
-			width: 400,
-			windowWidth: 400
+			width: 1080,
+			windowWidth: 1080
 		})
 	};
 	
