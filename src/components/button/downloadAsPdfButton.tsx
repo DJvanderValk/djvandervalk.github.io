@@ -1,15 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 
 import {
 	Download as DownloadIcon
 } from '@mui/icons-material';
 import {
+	Box,
 	Button,
+	ButtonProps,
 	MenuItem,
-	Select,
-	SelectChangeEvent,
-	SelectProps
+	SelectProps,
+	ThemeProvider
 } from '@mui/material';
 import {
 	Document,
@@ -18,88 +20,84 @@ import {
 	Text,
 	View
 } from '@react-pdf/renderer';
-import { useTranslation } from 'react-i18next';
 import jsPDF from 'jspdf';
+import { useTranslation } from 'react-i18next';
 
-const DownloadAsPdfButton = (props: SelectProps) => {
+import { ResumePdf } from '~features';
 
+import AppTheme from '../../themes/theme';
 
-	const myDocument = (
-		<Document>
-			<Page size='A4'>
-				<View>
-					<Text>Alloo!</Text>
-				</View>
-			</Page>
-		</Document>
-	);
+interface DownloadAsPdfButtonProps extends ButtonProps {
+	visible: boolean
+}
 
-	const downloadPdfClick = () => {
-		ReactDOM.render(myDocument, document.getElementById('root'))
-	};
-
-	const downloadPdfClick2 = async () => {
-		const asPdf = pdf();
-		asPdf.updateContainer(myDocument);
-
-		const pdfBlob = await asPdf.toBlob();
-
-		const a = document.createElement('a');
-		const url = URL.createObjectURL(pdfBlob);
-		a.href = url;
-		a.download = 'test.pdf';
-
-		document.body.appendChild(a);
-		a.click();
-
-		setTimeout(function () {
-			document.body.removeChild(a);
-			window.URL.revokeObjectURL(url);
-		}, 0);
-	};
+const DownloadAsPdfButton = (props: DownloadAsPdfButtonProps) => {
+	const { t } = useTranslation('general');
 	
-	const downloadPdfClick3 = () => {
+	const downloadPdfClick = () => {
 		const doc = new jsPDF(
 			'portrait', 'px', 'a4'
 		);
-		// const doc = new jsPDF({
-		// 	unit: 'pt',
-		// 	format: 'a4'
-		// });
-		doc.setFont("courier", "normal");
-		doc.setTextColor('#ffffff')
+		console.log(doc.internal)
+		// doc.setFont("courier", "normal");
+		// doc.setTextColor('#ffffff')
 		
-		const pdfContainer = document.createElement('div');
-		pdfContainer.id = 'pdf-container';
-		// pdfContainer.innerHTML = 'html';
-		pdfContainer.style.width = '1080px';
-		// pdfContainer.style.width = '100px';
+		// const bla = (
+		// 	<ThemeProvider theme={AppTheme('light')}>
+		// 		<ResumePdf />
+		// 	</ThemeProvider>
+		// );
+		const bla = (
+			<Box style={{ width: '1920px' }}>
+				<ResumePdf />
+			</Box>
+		);
+		
+		// const bla2 = renderToStaticMarkup(bla);
+		const bla2 = renderToString(bla);
+		
+		const root = document.getElementById('root');
+		root.innerHTML = bla2;
+		return;
 		
 		// const content = document.getElementById('resume-content');
-		// const content = document.getElementById('resume-main-content');
-		const content = document.getElementById('henk');
-		const clone = content.cloneNode(true);
 		
-		pdfContainer.appendChild(clone);
+		// const buttons = content.getElementsByTagName('button');
+		// console.log(buttons)
+		// for(let i=0; i < buttons.length; i++) {
+		// 	buttons[i].parentNode.removeChild(buttons[i]);
+		// }
 		
-		doc.html(pdfContainer, {
+		doc.html(bla2, {
 			callback: () => {
 				doc.save('test.pdf');
 			},
-			html2canvas: { width: 1080, height: 1920, scale: 0.43, backgroundColor: '#cdcdcd' },
-			margin: [10, 10, 10, 10],
-			autoPaging: 'text'
+			// html2canvas: { width: 1080, height: 1920, scale: 0.43, backgroundColor: '#cdcdcd' },
+			// margin: [10, 10, 10, 10],
+			autoPaging: 'text',
+			x: 0,
+			y: 0,
+			width: 400,
+			windowWidth: 400
 		})
 	};
+	
+	if(!props.visible) {
+		return <Box></Box>;
+	}
 
 	return (
 		<Button
-			onClick={downloadPdfClick3}
+			onClick={downloadPdfClick}
 			startIcon={<DownloadIcon />}
 		>
-			Download as pdf
+			{t('downloadAsPdf')}
 		</Button>
 	);
 };
+
+DownloadAsPdfButton.defaultProps = {
+	visible: true
+}
 
 export default DownloadAsPdfButton;

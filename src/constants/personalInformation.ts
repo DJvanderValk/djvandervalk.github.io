@@ -37,19 +37,22 @@ const personalInformation = {
 		'kiteSurfing',
 		'snowboarding',
 		'football',
-		'boardGames'
+		'boardGames',
+		'travelling'
 	],
 	skills: {
 		info: [
 			{
-				key: 'Javascript',
+				key: 'Javascript / Typescript',
 				level: 0.9,
-				keywords: [
-					'react',
-					'webpack',
-					'pwa',
-					'typescript'
-				]
+				// keywords: [
+				// 	'React',
+				// 	'Webpack',
+				// 	'PWA',
+				// 	'Typescript',
+				// 	'Jest',
+				// 	'Node.js'
+				// ]
 			},
 			{
 				key: 'HTML',
@@ -62,18 +65,25 @@ const personalInformation = {
 			{
 				key: 'C#',
 				level: 0.6,
-				keywords: [
-					'wpf',
-					'xaml'
-				]
+				// keywords: [
+				// 	'WPF',
+				// 	'XAML'
+				// ]
 			},
 			{
 				key: 'SQL',
-				level: 0.5
+				level: 0.5,
+				// keywords: [
+				// 	'PostgreSQL',
+				// 	'MariaDB'
+				// ]
 			},
 			{
 				key: 'C',
-				level: 0.5
+				level: 0.5,
+				// keywords: [
+				// 	'Microcontroller'
+				// ]
 			},
 			{
 				key: 'Python',
@@ -81,119 +91,40 @@ const personalInformation = {
 			},
 			{
 				key: 'C++',
+				level: 0.4
+			},
+			{
+				key: 'IEC 61131-3',
 				level: 0.3
+			},
+			{
+				key: 'PHP',
+				level: 0.2
 			}
-		]
-	},
-	careerProfile: {
-		details: 'careerProfileDetails'
-	},
-	workingExperience: {
-		info: [
-			{
-				role: 'softwareDeveloper',
-				company: 'SPIE Nederland',
-				location: {
-					city: 'Schiedam'
-				},
-				dateStart: '2021-01',
-				dateEnd: 'presentDay',
-				details: 'spieSoftwareDeveloperDetails',
-				tasks: 'spieSoftwareDeveloperTasks'
-			},
-			{
-				role: 'systemEngineer',
-				company: 'SPIE Nederland',
-				location: {
-					city: 'Schiedam'
-				},
-				dateStart: '2019-06',
-				dateEnd: '2021-01',
-				details: 'systemEngineerDetails',
-				// tasks: 'systemEngineerTasks'
-			},
-			{
-				role: 'waiter',
-				company: 'Strandpaviljoen Zuid',
-				location: {
-					city: 'Den Haag'
-				},
-				dateStart: '2014-08',
-				dateEnd: '2018-10',
-				details: 'waiterDetails'
-			},
-			{
-				role: 'snowboardTeacher',
-				company: 'Freaks on Snow',
-				location: {
-					country: 'austria',
-					city: 'Ellmau'
-				},
-				dateStart: '2016-12',
-				dateEnd: '2017-03',
-				details: 'snowboardTeacherDetails'
-			},
-			{
-				role: 'scholar',
-				company: 'Deerns',
-				location: {
-					city: 'Vierpolders'
-				},
-				dateStart: '2005',
-				dateEnd: '2014'
-			},
-			{
-				role: 'scholar',
-				company: 'Fa. Gebr. van der Valk',
-				location: {
-					city: 'Vierpolders'
-				},
-				dateStart: '2005',
-				dateEnd: '2014'
-			}
-		]
-	},
-	education: {
-		info: [
-			{
-				degree: 'electricalEngineering',
-				university: 'Hogeschool Rotterdam',
-				location: {
-					city: 'Rotterdam'
-				},
-				dateStart: '2010',
-				dateEnd: '2016',
-				details: 'Bla'
-			}
-		]
-	},
-	courses: {
-		info: [
-			{
-				provider: 'SPIE',
-				degree: 'Young Spie Professional Program',
-				date: '2020',
-				details: 'youngSpieProfDetails'
-			},
-			{
-				provider: 'IBEX',
-				degree: 'VOL-VCA',
-				date: '2016-06'
-			}
-		]
-	},
-	otherExperiences: {
-		info: [
-			{
-				details: 'southAmericaDetails',
-				dateStart: '2018-11',
-				dateEnd: '2019-03'
-			},
-			{
-				details: 'southEastAsiaDetails',
-				dateStart: '2017-12',
-				dateEnd: '2018-04'
-			}
+		],
+		keywords: [
+			'React',
+			'Webpack',
+			'PWA',
+			// 'Typescript',
+			'Jest',
+			'Node.js',
+			'WPF',
+			'XAML',
+			'PostgreSQL',
+			'MariaDB',
+			'Kubernetes',
+			'JSON Schema',
+			'YAML',
+			'OpenAPI',
+			'Postman',
+			'Mathematics',
+			'Geometry & Projections',
+			'Linux',
+			'Raspberry PI',
+			'Microcontroller',
+			'UML',
+			'OOP',
 		]
 	}
 };

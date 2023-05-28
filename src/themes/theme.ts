@@ -9,8 +9,7 @@ import lightTheme from './lightTheme';
 import ThemeEnum from '../enums/themeEnum';
 import themeAtom from '../atoms/themeAtom';
 
-const AppTheme = () => {
-	const theme = useRecoilValue(themeAtom);
+const AppTheme = (theme: string) => {
 	
 	return React.useMemo(() => createTheme(
 		baseTheme,

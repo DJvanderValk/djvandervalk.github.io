@@ -115,8 +115,8 @@ const HomePage = () => {
 			icon: <PublicIcon />
 		},
 	};
-
-	const [expanded, setExpanded] = React.useState<{ [id: number]: boolean }>({});
+	
+	const [expanded, setExpanded] = React.useState<{[id: number]: boolean}>({});
 
 	const headerPanel = (
 		<Box
@@ -202,7 +202,7 @@ const HomePage = () => {
 					)}
 				</Stack>
 			</Box>
-
+			
 			<Box>
 				<Box mt='10px'>
 					{personalInformation.skills.keywords.map((keyword, i) =>
@@ -211,7 +211,7 @@ const HomePage = () => {
 							label={keyword}
 							variant='filled'
 							size='medium'
-							sx={{ color: 'white', m: '1px' }}
+							sx={{ color: 'white', m: '1px'}}
 						/>
 					)}
 				</Box>
@@ -286,14 +286,14 @@ const HomePage = () => {
 										}
 									</Box>
 								);
-							} else if (tag === 'Collapse') {
-								const bla: { [key: number]: boolean } = {};
+							} else if(tag === 'Collapse') {
+								const bla: { [key: number]: boolean} = {};
 								// bla[props.key] = expanded[props.key] == null ? false : !expanded[props.key];
 								bla[props.key] = !expanded[props.key];
 								return (
 									<>
 										<Button
-											onClick={() => setExpanded({ ...expanded, ...bla })}
+											onClick={() => setExpanded({...expanded, ...bla})}
 											sx={{ textTransform: 'capitalize', width: '100%', mt: '15px' }}
 											endIcon={
 												<ExpandMoreIcon
@@ -325,12 +325,8 @@ const HomePage = () => {
 			}
 		</>
 	);
-
-	// return (
-	// 	<Box width='1080px'>
-	// 		<ResumePdf />
-	// 	</Box>
-	// );
+	
+	return (<ResumePdf />)
 
 	return (
 		<Box
@@ -386,7 +382,7 @@ const HomePage = () => {
 					direction='row'
 					boxSizing='border-box'
 				>
-					<DownloadAsPdfButton visible={false} />
+					<DownloadAsPdfButton />
 					<Stack
 						spacing='inherit'
 						direction='row'

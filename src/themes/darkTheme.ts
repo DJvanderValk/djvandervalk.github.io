@@ -9,9 +9,9 @@ const darkTheme: ThemeOptions = {
 			dark: '#42a5f5',
 		},
 		secondary: {
-			main: '#FF6666',
-			light: '#f3e5f5',
-			dark: '#ab47bc',
+			main: '#e65c75',
+			light: '#d92e6c',
+			dark: '#d63a64',
 		},
 		background: {
 			default: '#121212',

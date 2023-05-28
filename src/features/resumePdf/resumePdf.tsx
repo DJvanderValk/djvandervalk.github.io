@@ -22,11 +22,13 @@ import {
 	Button,
 	Chip,
 	Collapse,
+	Divider,
 	Grid,
 	LinearProgress,
 	Link,
 	Paper,
 	Stack,
+	ThemeProvider,
 	Typography,
 	useTheme
 } from '@mui/material';
@@ -34,16 +36,10 @@ import i18next from 'i18next';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
-import {
-	DownloadAsPdfButton,
-	LanguageSelect,
-	ThemeSwitch
-} from '~components';
-
 import personalInformation from '../../constants/personalInformation';
-import { ResumePdf } from '~features';
+import AppTheme from '../../themes/theme';
 
-const HomePage = () => {
+const ResumePdf = () => {
 	const { t } = useTranslation('general');
 	const theme = useTheme();
 
@@ -66,8 +62,7 @@ const HomePage = () => {
 		{
 			key: (new Date(personalInformation.profile.dateOfBirth)).toLocaleDateString(
 				'nl-NL', { year: 'numeric', month: 'long', day: 'numeric' }
-			),
-			icon: <CakeIcon fontSize='small' />
+			)
 		},
 		{ key: personalInformation.profile.address.city, icon: <HomeIcon fontSize='small' /> },
 		{ key: t(personalInformation.profile.citizenship), icon: <FlagIcon fontSize='small' /> },
@@ -116,8 +111,6 @@ const HomePage = () => {
 		},
 	};
 
-	const [expanded, setExpanded] = React.useState<{ [id: number]: boolean }>({});
-
 	const headerPanel = (
 		<Box
 			width='100%'
@@ -131,7 +124,7 @@ const HomePage = () => {
 				justifyContent='center'
 				width='100%'
 			>
-				<Typography variant='h1' pr={{ xs: '10px', sm: 0 }}>
+				<Typography variant='h1'>
 					{personalInformation.profile.firstName}
 				</Typography>
 				<Typography variant='h1'>
@@ -145,23 +138,10 @@ const HomePage = () => {
 	);
 
 	const sidePanel = (
-		<Stack spacing={4} color='white'>
+		<Stack spacing={4}>
 			<Box>
 				{profile.map((el, i) =>
-					<Stack key={i} spacing={2} direction='row' alignItems='center'>
-						{el.icon}
-						{el.href ?
-							<Link
-								color='inherit'
-								variant='body1'
-								underline='hover'
-								href={el.href}
-							>
-								{el.key}
-							</Link> :
-							<Typography variant='body1'>{el.key}</Typography>
-						}
-					</Stack>
+					<Typography variant='body1'>{el.key}</Typography>
 				)}
 			</Box>
 
@@ -193,25 +173,20 @@ const HomePage = () => {
 								value={el.level * 100}
 								sx={{ width: '100%' }}
 							/>
-							{/* <Box mt='5px'>
-								{el.keywords && el.keywords.map((keyword, i) =>
-									<Chip label={keyword} variant='filled' sx={{ m: '1px'}} />
-								)}
-							</Box> */}
 						</Stack>
 					)}
 				</Stack>
 			</Box>
-
+			
 			<Box>
 				<Box mt='10px'>
 					{personalInformation.skills.keywords.map((keyword, i) =>
 						<Chip
 							key={i}
 							label={keyword}
-							variant='filled'
+							variant='outlined'
 							size='medium'
-							sx={{ color: 'white', m: '1px' }}
+							sx={{ m: '1px'}}
 						/>
 					)}
 				</Box>
@@ -234,24 +209,22 @@ const HomePage = () => {
 				<Markdown
 					options={{
 						createElement(tag: string, props: any, children: any) {
-							if (tag === 'h1') {
+							if (tag === 'h1' || tag === 'Collapse') {
 								return;
 							} else if (tag === 'h2') {
-								// console.log(tag, props, children)
 								return (
-									<Stack
-										spacing={1} direction='row' pt='40px'
+									<Typography
+										variant={tag}
+										color='primary'
+										pt='30px'
 										pb={props.id === 'career-profile' ? '10px' : 0}
 									>
-										{headerMapping[props.id as keyof typeof headerMapping].icon}
-										<Typography variant={tag} color='primary'>
-											{children}
-										</Typography>
-									</Stack>
+										{children}
+									</Typography>
 								);
 							} else if (tag === 'h3') {
 								return (
-									<Typography {...props} variant={tag} color='secondary' pt='30px' pb='10px'>
+									<Typography {...props} variant={tag} color='secondary' pt='15px' pb='8px'>
 										{children}
 									</Typography>
 								);
@@ -286,34 +259,6 @@ const HomePage = () => {
 										}
 									</Box>
 								);
-							} else if (tag === 'Collapse') {
-								const bla: { [key: number]: boolean } = {};
-								// bla[props.key] = expanded[props.key] == null ? false : !expanded[props.key];
-								bla[props.key] = !expanded[props.key];
-								return (
-									<>
-										<Button
-											onClick={() => setExpanded({ ...expanded, ...bla })}
-											sx={{ textTransform: 'capitalize', width: '100%', mt: '15px' }}
-											endIcon={
-												<ExpandMoreIcon
-													sx={{
-														color: 'textSecondary',
-														transform: !expanded[props.key] ? 'rotate(0deg)' : 'rotate(180deg)',
-														transition: theme.transitions.create('transform', {
-															duration: theme.transitions.duration.shortest,
-														})
-													}}
-												/>
-											}
-										>
-											<Typography width='100%' color='primary'>
-												{t(!expanded[props.key] ? 'seeMore' : 'seeLess')}
-											</Typography>
-										</Button>
-										<Collapse in={expanded[props.key]}>{React.createElement(tag, props, children)}</Collapse>
-									</>
-								);
 							}
 
 							return React.createElement(tag, props, children);
@@ -326,78 +271,32 @@ const HomePage = () => {
 		</>
 	);
 
-	// return (
-	// 	<Box width='1080px'>
-	// 		<ResumePdf />
-	// 	</Box>
-	// );
-
 	return (
-		<Box
-			display='flex'
-			justifyContent='center'
-			bgcolor={theme.palette.background.default}
-			width='100%' height='100%'
-			sx={{ overflowX: 'hidden' }}
-			padding={{ xs: 0, sm: 0, md: '30px' }}
-			boxSizing='border-box'
-		>
-			<Box maxWidth='1100px' height='fit-content' overflow='hidden'>
-				<Paper
-					id='resume-content'
-					elevation={3}
-					sx={{
-						overflow: 'hidden',
-						borderRadius: { xs: 0, sm: 0, md: '8px' }
-					}}
+		<ThemeProvider theme={AppTheme('light')}>
+			<Grid container direction='row' border='1px'>
+				<Grid
+					container item
+					direction='column'
+					sm={4}
+					maxWidth={{ sm: '300px' }}
 				>
-					<Grid container direction='row-reverse' >
-						<Grid
-							container item
-							direction='column'
-							xs={12} sm='auto'
-							maxWidth={{ sm: '300px' }}
-						>
-							<Grid item bgcolor='#0e786d' /* */ padding='30px'>
-								{headerPanel}
-							</Grid>
-							<Grid item bgcolor='#1fad9f' /*'#177e4b'*/ padding='30px' xs>
-								{sidePanel}
-							</Grid>
-						</Grid>
-						<Grid
-							item
-							xs={12} sm
-							paddingX={{ xs: '18px' }}
-							paddingY={{ xs: '40px' }}
-							padding={{ sm: '30px', md: '60px' }}
-						>
-							{mainPanel}
-						</Grid>
+					<Grid item padding='30px'>
+						{headerPanel}
 					</Grid>
-				</Paper>
-				<Stack
-					display='flex'
-					justifyContent='space-between'
-					maxWidth='1100px'
-					width='100%'
-					padding='18px'
-					spacing={2}
-					direction='row'
-					boxSizing='border-box'
-				>
-					<DownloadAsPdfButton visible={false} />
-					<Stack
-						spacing='inherit'
-						direction='row'
-					>
-						<LanguageSelect color='primary' variant='standard' />
-						<ThemeSwitch />
-					</Stack>
-				</Stack>
-			</Box>
-		</Box>
+					<Divider />
+					<Grid item padding='30px' xs>
+						{sidePanel}
+					</Grid>
+				</Grid>
+				<Grid item>
+					<Divider orientation='vertical'/>
+				</Grid>
+				<Grid item sm={8} p='18px'>
+					{mainPanel}
+				</Grid>
+			</Grid>
+		</ThemeProvider>
 	);
 };
 
-export default HomePage;
+export default ResumePdf;

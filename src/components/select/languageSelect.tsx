@@ -4,13 +4,15 @@ import {
 	MenuItem,
 	Select,
 	SelectChangeEvent,
-	SelectProps
+	SelectProps,
+	useTheme
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import LanguageEnum from '../../enums/languageEnum';
 
 const LanguageSelect = (props: SelectProps) => {
+	const theme = useTheme();
 	const { i18n } = useTranslation('general');
 	
 	/**
@@ -36,12 +38,17 @@ const LanguageSelect = (props: SelectProps) => {
 			{...props}
 			value={i18n.resolvedLanguage}
 			onChange={handleLanguageChange}
+			sx={{
+				'& .MuiSvgIcon-root ': {
+					fill: theme.palette.text.primary,
+				}
+				
+			}}
 		>
 			{getSupportedLanguages().map((lng: keyof typeof LanguageEnum, i: number) =>
 				<MenuItem
 					key={i}
 					value={lng}
-					color='primary'
 				>
 					{LanguageEnum[lng]}
 				</MenuItem>

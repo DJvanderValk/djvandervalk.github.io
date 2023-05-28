@@ -12,12 +12,12 @@ const baseTheme: ThemeOptions = {
 			// marginBottom: '10px'
 		},
 		h3: {
-			fontSize: '1.2rem',
+			fontSize: '1.15rem',
 			// marginTop: '15px',
 			// marginBottom: '10px'
 		},
-		h4: {
-			fontSize: '1rem'
+		body1: {
+			fontSize: '15px'
 		}
 	}
 };

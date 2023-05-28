@@ -18,6 +18,8 @@
       "~docs*": ["./docs*"],
       "~enums": ["./src/enums/index.ts"],
       "~enums*": ["./src/enums*"],
+      "~features": ["./src/features/index.ts"],
+      "~features*": ["./src/features*"],
       "~pages": ["./src/pages/index.ts"],
       "~pages*": ["./src/pages*"]
     }
