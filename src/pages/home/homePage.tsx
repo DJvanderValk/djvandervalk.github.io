@@ -35,7 +35,7 @@ import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import {
-	DownloadAsPdfButton,
+	SaveAsPdfButton,
 	LanguageSelect,
 	ThemeSwitch
 } from '~components';
@@ -75,18 +75,18 @@ const HomePage = () => {
 		{
 			key: t(personalInformation.profile.phoneNumber),
 			icon: <PhoneIcon fontSize='small' />,
-			href: `tel:${personalInformation.profile.phoneNumber}`
+			href: `tel:${personalInformation.profile.phoneNumber.replace(/[ ]/g, '')}`
 		},
 		{
 			key: t(personalInformation.profile.mail),
 			icon: <MailIcon fontSize='small' />,
 			href: `mailto:${personalInformation.profile.mail}`
 		},
-		{
-			key: t(personalInformation.profile.github),
-			icon: <GitHubIcon fontSize='small' />,
-			href: `https://github.com/${personalInformation.profile.github}`
-		}
+		// {
+		// 	key: t(personalInformation.profile.github),
+		// 	icon: <GitHubIcon fontSize='small' />,
+		// 	href: `https://github.com/${personalInformation.profile.github}`
+		// }
 	];
 
 	const headerMapping = {
@@ -327,12 +327,6 @@ const HomePage = () => {
 		</>
 	);
 
-	// return (
-	// 	<Box width='1080px'>
-	// 		<ResumePdf />
-	// 	</Box>
-	// );
-
 	return (
 		<Box
 			display='flex'
@@ -369,9 +363,9 @@ const HomePage = () => {
 						<Grid
 							item
 							xs={12} sm
-							paddingX={{ xs: '18px' }}
-							paddingY={{ xs: '40px' }}
-							padding={{ sm: '30px', md: '60px' }}
+							paddingX={{ xs: '18px', sm: '30px', md: '60px' }}
+							paddingY={{ xs: '25px' }}
+							// padding={{ sm: '30px', md: '60px' }}
 						>
 							{mainPanel}
 						</Grid>
@@ -387,7 +381,7 @@ const HomePage = () => {
 					direction='row'
 					boxSizing='border-box'
 				>
-					<DownloadAsPdfButton visible={true} />
+					<SaveAsPdfButton visible={true} />
 					<Stack
 						spacing='inherit'
 						direction='row'

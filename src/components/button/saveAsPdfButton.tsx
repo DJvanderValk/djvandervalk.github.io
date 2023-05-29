@@ -28,22 +28,20 @@ import { ResumePdf } from '~features';
 import AppTheme from '../../themes/theme';
 import { createRoot } from 'react-dom/client';
 
-interface DownloadAsPdfButtonProps extends ButtonProps {
+interface SaveAsPdfButtonProps extends ButtonProps {
 	visible: boolean
 }
 
-const DownloadAsPdfButton = (props: DownloadAsPdfButtonProps) => {
+const SaveAsPdfButton = (props: SaveAsPdfButtonProps) => {
 	const { t } = useTranslation('general');
 	
-	const downloadPdfClick = () => {
-		const doc = new jsPDF(
-			'portrait', 'px', 'a4'
-		);
+	const saveAsPdfClick = () => {
+		const doc = new jsPDF('portrait', 'px', 'a4');
 		
 		const pdfEl = document.getElementById('pdf');
 		const pdfRoot = createRoot(pdfEl);
 		pdfRoot.render(
-			<Box style={{ width: '1080px' }}>
+			<Box style={{ width: '1060px' }}>
 				<ResumePdf />
 			</Box>
 		);
@@ -52,13 +50,13 @@ const DownloadAsPdfButton = (props: DownloadAsPdfButtonProps) => {
 			callback: () => {
 				doc.save('resume-dennisvdvalk.pdf');
 			},
-			html2canvas: { width: 1080, scale: 0.43 },
-			// margin: [10, 10, 10, 10],
+			html2canvas: { width: 1060, scale: 0.43 },
+			margin: [10, 10, 10, 10],
 			autoPaging: 'text',
 			x: 0,
 			y: 0,
-			width: 1080,
-			windowWidth: 1080
+			width: 1060,
+			windowWidth: 1060
 		})
 	};
 	
@@ -68,16 +66,16 @@ const DownloadAsPdfButton = (props: DownloadAsPdfButtonProps) => {
 
 	return (
 		<Button
-			onClick={downloadPdfClick}
+			onClick={saveAsPdfClick}
 			startIcon={<DownloadIcon />}
 		>
-			{t('downloadAsPdf')}
+			{t('saveAsPdf')}
 		</Button>
 	);
 };
 
-DownloadAsPdfButton.defaultProps = {
+SaveAsPdfButton.defaultProps = {
 	visible: true
 }
 
-export default DownloadAsPdfButton;
+export default SaveAsPdfButton;

@@ -20,6 +20,7 @@ import {
 import {
 	Box,
 	Button,
+	Container,
 	Chip,
 	Collapse,
 	Divider,
@@ -76,39 +77,12 @@ const ResumePdf = () => {
 			icon: <MailIcon fontSize='small' />,
 			href: `mailto:${personalInformation.profile.mail}`
 		},
-		{
-			key: t(personalInformation.profile.github),
-			icon: <GitHubIcon fontSize='small' />,
-			href: `https://github.com/${personalInformation.profile.github}`
-		}
+		// {
+		// 	key: t(personalInformation.profile.github),
+		// 	icon: <GitHubIcon fontSize='small' />,
+		// 	href: `https://github.com/${personalInformation.profile.github}`
+		// }
 	];
-
-	const headerMapping = {
-		'career-profile': {
-			key: 'careerProfile',
-			icon: <PersonIcon />
-		},
-		'working-experience': {
-			key: 'workingExperience',
-			icon: <WorkIcon />
-		},
-		'education': {
-			key: 'education',
-			icon: <SchoolIcon />
-		},
-		'courses': {
-			key: 'courses',
-			icon: <LocalLibraryIcon />
-		},
-		'projects': {
-			key: 'projects',
-			icon: <ArchitectureIcon />
-		},
-		'other-experiences': {
-			key: 'otherExperiences',
-			icon: <PublicIcon />
-		},
-	};
 
 	const headerPanel = (
 		<Box
@@ -273,24 +247,37 @@ const ResumePdf = () => {
 				<Grid
 					container item
 					direction='column'
-					sm={4}
+					xs={4}
 					maxWidth={{ sm: '300px' }}
 				>
 					<Grid item padding='30px'>
 						{headerPanel}
 					</Grid>
 					<Divider />
-					<Grid item padding='30px' xs>
+					<Grid item pl='10px' pr='30px' py='18px' xs>
 						{sidePanel}
 					</Grid>
 				</Grid>
-				<Grid item>
+				<Grid item >
 					<Divider orientation='vertical'/>
 				</Grid>
-				<Grid item sm={8} p='18px'>
+				<Grid item p='18px' xs={8}>
 					{mainPanel}
 				</Grid>
 			</Grid>
+			{/* <Box display='flex'>
+				<Stack maxWidth='300px'>
+					<Container sx={{ padding: '30px' }}>
+						{headerPanel}
+					</Container>
+					<Container sx={{ padding: '30px' }}>
+						{sidePanel}
+					</Container>
+				</Stack>
+				<Box flexGrow={1} p='18px'>
+					{mainPanel}
+				</Box>
+			</Box> */}
 		</ThemeProvider>
 	);
 };
