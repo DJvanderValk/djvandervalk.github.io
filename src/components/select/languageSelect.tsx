@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import LanguageEnum from '../../enums/languageEnum';
+import { LanguageEnum } from '~enums';
 
 const LanguageSelect = (props: SelectProps) => {
 	const theme = useTheme();

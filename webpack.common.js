@@ -77,6 +77,7 @@ module.exports = (env) => ({
 	],
 	resolve: {
 		alias: {
+			'~atoms': path.resolve(__dirname, 'src', 'atoms'),
 			'~assets': path.resolve(__dirname, 'src', 'assets'),
 			'~components': path.resolve(__dirname, 'src', 'components'),
 			'~constants': path.resolve(__dirname, 'src', 'constants'),
@@ -84,6 +85,7 @@ module.exports = (env) => ({
 			'~enums': path.resolve(__dirname, 'src', 'enums'),
 			'~features': path.resolve(__dirname, 'src', 'features'),
 			'~pages': path.resolve(__dirname, 'src', 'pages'),
+			'~themes': path.resolve(__dirname, 'src', 'themes'),
 		},
 		extensions: ['.tsx', '.ts', '.js'],
 		fallback: {

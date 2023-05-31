@@ -7,14 +7,10 @@ const baseTheme: ThemeOptions = {
 		},
 		h2: {
 			fontSize: '1.4rem',
-			textTransform: 'uppercase',
-			// marginTop: '40px',
-			// marginBottom: '10px'
+			textTransform: 'uppercase'
 		},
 		h3: {
-			fontSize: '1.15rem',
-			// marginTop: '15px',
-			// marginBottom: '10px'
+			fontSize: '1.15rem'
 		},
 		body1: {
 			fontSize: '15px'

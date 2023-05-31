@@ -1,6 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 
 import {
 	Download as DownloadIcon
@@ -8,25 +6,13 @@ import {
 import {
 	Box,
 	Button,
-	ButtonProps,
-	MenuItem,
-	SelectProps,
-	ThemeProvider
+	ButtonProps
 } from '@mui/material';
-import {
-	Document,
-	Page,
-	pdf,
-	Text,
-	View
-} from '@react-pdf/renderer';
 import jsPDF from 'jspdf';
+import { createRoot } from 'react-dom/client';
 import { useTranslation } from 'react-i18next';
 
 import { ResumePdf } from '~features';
-
-import AppTheme from '../../themes/theme';
-import { createRoot } from 'react-dom/client';
 
 interface SaveAsPdfButtonProps extends ButtonProps {
 	visible: boolean
@@ -57,7 +43,7 @@ const SaveAsPdfButton = (props: SaveAsPdfButtonProps) => {
 			y: 0,
 			width: 1060,
 			windowWidth: 1060
-		})
+		});
 	};
 	
 	if(!props.visible) {
@@ -76,6 +62,6 @@ const SaveAsPdfButton = (props: SaveAsPdfButtonProps) => {
 
 SaveAsPdfButton.defaultProps = {
 	visible: true
-}
+};
 
 export default SaveAsPdfButton;

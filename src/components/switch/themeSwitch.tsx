@@ -5,56 +5,52 @@ import {
 	ModeNight as ModeNightIcon
 } from '@mui/icons-material';
 import {
-	SelectProps,
 	Switch
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useRecoilState } from 'recoil';
 
-import themeAtom from '../../atoms/themeAtom';
-import ThemeEnum from '../../enums/themeEnum';
+import { themeAtom } from '~atoms';
+import { ThemeEnum } from '~enums';
 
-const ThemeSwitch = (props: SelectProps) => {
+const ThemeSwitch = () => {
 	const [theme, setTheme] = useRecoilState(themeAtom);
 
 	/**
 	 * Handle the change of language
 	 */
-	const handleThemeChange = (event: React.ChangeEvent<HTMLElement>) => {
+	const handleThemeChange = () => {
 		if (theme === ThemeEnum.Light) {
 			setTheme(ThemeEnum.Dark);
 		} else {
-			setTheme(ThemeEnum.Light)
+			setTheme(ThemeEnum.Light);
 		}
 	};
 
 	return (
-		<>
-			<Switch
-				icon={<ModeNightIcon fontSize='small' />}
-				checkedIcon={<LightModeIcon fontSize='small' />}
-				checked={theme === ThemeEnum.Light}
-				onChange={handleThemeChange}
-				sx={{
-					'& .MuiSwitch-switchBase': {
+		<Switch
+			icon={<ModeNightIcon fontSize='small' />}
+			checkedIcon={<LightModeIcon fontSize='small' />}
+			checked={theme === ThemeEnum.Light}
+			onChange={handleThemeChange}
+			sx={{
+				'& .MuiSwitch-switchBase': {
+					color: 'white',
+					bgcolor: theme === ThemeEnum.Dark ? '#003892' : '#1C7FDC',
+					padding: '5px',
+					margin: '4px',
+					':hover': {
+						bgcolor: '#003892'
+					},
+					'&.Mui-checked': {
 						color: 'white',
-						bgcolor: theme === ThemeEnum.Dark ? '#003892' : '#1C7FDC',
-						padding: '5px',
-						margin: '4px',
+						bgcolor: '#1C7FDC',
 						':hover': {
-							bgcolor: '#003892'
-						},
-						'&.Mui-checked': {
-							color: 'white',
-							bgcolor: '#1C7FDC',
-							':hover': {
-								bgcolor: '#1C7FDC'
-							}
+							bgcolor: '#1C7FDC'
 						}
 					}
-				}}
-			/>
-		</>
+				}
+			}}
+		/>
 	);
 };
 

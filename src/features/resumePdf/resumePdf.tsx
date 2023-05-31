@@ -1,44 +1,28 @@
 import * as React from 'react';
 
 import {
-	Architecture as ArchitectureIcon,
-	Cake as CakeIcon,
-	Construction as ConstructionIcon,
-	ExpandMore as ExpandMoreIcon,
 	Flag as FlagIcon,
-	GitHub as GitHubIcon,
 	Home as HomeIcon,
-	LocalLibrary as LocalLibraryIcon,
 	Mail as MailIcon,
-	Person as PersonIcon,
 	Phone as PhoneIcon,
-	Public as PublicIcon,
-	School as SchoolIcon,
-	Wc as WcIcon,
-	Work as WorkIcon
+	Wc as WcIcon
 } from '@mui/icons-material';
 import {
 	Box,
-	Button,
-	Container,
 	Chip,
-	Collapse,
 	Divider,
 	Grid,
 	LinearProgress,
-	Link,
-	Paper,
 	Stack,
 	ThemeProvider,
-	Typography,
-	useTheme
+	Typography
 } from '@mui/material';
 import i18next from 'i18next';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
-import personalInformation from '../../constants/personalInformation';
-import AppTheme from '../../themes/theme';
+import { personalInformation } from '~constants';
+import { AppTheme } from '~themes';
 
 const ResumePdf = () => {
 	const { t } = useTranslation('general');
@@ -64,24 +48,12 @@ const ResumePdf = () => {
 				'nl-NL', { year: 'numeric', month: 'long', day: 'numeric' }
 			)
 		},
-		{ key: personalInformation.profile.address.city, icon: <HomeIcon fontSize='small' /> },
-		{ key: t(personalInformation.profile.citizenship), icon: <FlagIcon fontSize='small' /> },
-		{ key: t(personalInformation.profile.gender), icon: <WcIcon fontSize='small' /> },
-		{
-			key: t(personalInformation.profile.phoneNumber),
-			icon: <PhoneIcon fontSize='small' />,
-			href: `tel:${personalInformation.profile.phoneNumber}`
-		},
-		{
-			key: t(personalInformation.profile.mail),
-			icon: <MailIcon fontSize='small' />,
-			href: `mailto:${personalInformation.profile.mail}`
-		},
-		// {
-		// 	key: t(personalInformation.profile.github),
-		// 	icon: <GitHubIcon fontSize='small' />,
-		// 	href: `https://github.com/${personalInformation.profile.github}`
-		// }
+		{ key: personalInformation.profile.address.city },
+		{ key: t(personalInformation.profile.citizenship) },
+		{ key: t(personalInformation.profile.gender) },
+		{ key: t(personalInformation.profile.phoneNumber) },
+		{ key: t(personalInformation.profile.mail) },
+		// { key: t(personalInformation.profile.github) }
 	];
 
 	const headerPanel = (
@@ -111,7 +83,7 @@ const ResumePdf = () => {
 		<Stack spacing={3}>
 			<Box>
 				{profile.map((el, i) =>
-					<Typography variant='body1'>{el.key}</Typography>
+					<Typography key={i} variant='body1'>{el.key}</Typography>
 				)}
 			</Box>
 
@@ -148,18 +120,16 @@ const ResumePdf = () => {
 				</Stack>
 			</Box>
 			
-			<Box>
-				<Box mt='10px'>
-					{personalInformation.skills.keywords.map((keyword, i) =>
-						<Chip
-							key={i}
-							label={keyword}
-							variant='outlined'
-							size='medium'
-							sx={{ m: '1px'}}
-						/>
-					)}
-				</Box>
+			<Box mt='10px'>
+				{personalInformation.skills.keywords.map((keyword, i) =>
+					<Chip
+						key={i}
+						label={keyword}
+						variant='outlined'
+						size='medium'
+						sx={{ m: '1px'}}
+					/>
+				)}
 			</Box>
 
 			<Box>
@@ -265,19 +235,6 @@ const ResumePdf = () => {
 					{mainPanel}
 				</Grid>
 			</Grid>
-			{/* <Box display='flex'>
-				<Stack maxWidth='300px'>
-					<Container sx={{ padding: '30px' }}>
-						{headerPanel}
-					</Container>
-					<Container sx={{ padding: '30px' }}>
-						{sidePanel}
-					</Container>
-				</Stack>
-				<Box flexGrow={1} p='18px'>
-					{mainPanel}
-				</Box>
-			</Box> */}
 		</ThemeProvider>
 	);
 };
