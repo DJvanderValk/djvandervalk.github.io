@@ -2,7 +2,7 @@
 
 <h2 id='career-profile'>Career profile</h2>
 
-A Software Developer with a background in programming Embedded Systems. In possession of a broad skill-set with both experience in backend and frontend systems. Expertise and a special interests in applied (geometric) mathematics. Able to self-manage during independent projects, as well as collaborate as part of a team.
+A Software Developer with a background in programming Embedded Systems. In possession of a broad skill-set with both experience in backend and frontend systems. Expertise and a special interest in applied (geometric) mathematics. Able to self-manage during independent projects, as well as collaborate as part of a team.
 
 <h2 id='working-experience'>Working experience</h2>
 
@@ -59,11 +59,11 @@ Researching and designing the usage of electrical geysers in hospitals based on 
 
 > Fa. Gebr. van der Valk, Vierpolders | 2005 - 2014
 
-Seasonal harvesting of bell peppers with the additional supporting tasks. 
-
-<h2 id='education'>Education</h2>
+Seasonal harvesting of bell peppers with the additional supporting tasks.
 
 </Collapse>
+
+<h2 id='education'>Education</h2>
 
 ### Bachelor of Science - Electrical Engineering
 
@@ -79,9 +79,9 @@ Seasonal harvesting of bell peppers with the additional supporting tasks.
 
 * Profile Nature & Technology
 
-<h2 id='courses'>Courses</h2>
-
 </Collapse>
+
+<h2 id='courses'>Courses</h2>
 
 ### Young SPIE Professional Program
 

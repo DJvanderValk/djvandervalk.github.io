@@ -114,6 +114,7 @@ const personalInformation = {
 			'PostgreSQL',
 			'MariaDB',
 			'Kubernetes',
+			'Markdown',
 			'JSON',
 			'JSON Schema',
 			'REST',
