@@ -46,7 +46,11 @@ const Resume = () => {
 
 	const loadFile = async () => {
 		try {
-			const file = await import(`~docs/resume_experience_${i18next.language}.md`);
+			const file = await import(
+				/* @vite-ignore */
+				// `./resume_experience_${i18next.language}.md`
+				`~docs/resume_experience_${i18next.language}.md`
+			);
 			setResumeFile(file.default);
 		} catch (error) {
 			console.log(error);
@@ -322,10 +326,10 @@ const Resume = () => {
 				xs={12} sm='auto'
 				maxWidth={{ sm: '300px' }}
 			>
-				<Grid item bgcolor='#0e786d' /* */ padding='30px'>
+				<Grid item bgcolor='#0e786d' padding='30px'>
 					{headerPanel}
 				</Grid>
-				<Grid item bgcolor='#1fad9f' /*'#177e4b'*/ padding='30px' xs>
+				<Grid item bgcolor='#1fad9f' padding='30px' xs>
 					{sidePanel}
 				</Grid>
 			</Grid>
@@ -334,7 +338,7 @@ const Resume = () => {
 				xs={12} sm
 				paddingX={{ xs: '18px', sm: '30px', md: '60px' }}
 				paddingY={{ xs: '25px' }}
-				// padding={{ sm: '30px', md: '60px' }}
+			// padding={{ sm: '30px', md: '60px' }}
 			>
 				{mainPanel}
 			</Grid>

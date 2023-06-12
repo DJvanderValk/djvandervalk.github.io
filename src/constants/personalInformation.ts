@@ -12,7 +12,7 @@ const personalInformation = {
 		// driversLicense: 'B',
 		phoneNumber: '+31 6 30926100',
 		mail: 'dennisvdvalk@hotmail.com',
-		// github: 'djvandervalk'
+		github: 'djvandervalk'
 	},
 	languages: [
 		{

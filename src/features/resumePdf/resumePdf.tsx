@@ -1,13 +1,6 @@
 import * as React from 'react';
 
 import {
-	Flag as FlagIcon,
-	Home as HomeIcon,
-	Mail as MailIcon,
-	Phone as PhoneIcon,
-	Wc as WcIcon
-} from '@mui/icons-material';
-import {
 	Box,
 	Chip,
 	Divider,
@@ -35,7 +28,12 @@ const ResumePdf = () => {
 
 	const loadFile = async () => {
 		try {
-			const file = await import(`~docs/resume_experience_${i18next.language}.md`);
+			const file = await import(
+				
+				/* @vite-ignore */
+				`../../../resume_experience_${i18next.language}.md`
+				// `~docs/resume_experience_${i18next.language}.md`
+			);
 			setResumeFile(file.default);
 		} catch (error) {
 			console.log(error);
@@ -51,9 +49,14 @@ const ResumePdf = () => {
 		{ key: personalInformation.profile.address.city },
 		{ key: t(personalInformation.profile.citizenship) },
 		{ key: t(personalInformation.profile.gender) },
-		{ key: t(personalInformation.profile.phoneNumber) },
-		{ key: t(personalInformation.profile.mail) },
-		// { key: t(personalInformation.profile.github) }
+		{
+			key: t(personalInformation.profile.phoneNumber),
+			href: `tel:${personalInformation.profile.phoneNumber.replace(/[ ]/g, '')}`
+		},
+		{
+			key: t(personalInformation.profile.mail),
+			href: `mailto:${personalInformation.profile.mail}`
+		}
 	];
 
 	const headerPanel = (

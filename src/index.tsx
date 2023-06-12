@@ -8,7 +8,7 @@ import App from './app';
 import './lib/i18n';
 import './index.css';
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
 	<React.Suspense fallback={<div>Loading...</div>}>
 		<RecoilRoot>

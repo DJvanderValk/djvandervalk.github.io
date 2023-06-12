@@ -14,13 +14,11 @@ import './app.css';
  */
 const App = () => {
 	return (
-		<>
-			<ThemeProvider theme={AppTheme(useRecoilValue(themeAtom))}>
-				<div className='app'>
-					<HomePage />
-				</div>
-			</ThemeProvider>
-		</>
+		<ThemeProvider theme={AppTheme(useRecoilValue(themeAtom))}>
+			<div className='app'>
+				<HomePage />
+			</div>
+		</ThemeProvider>
 	);
 };
 
