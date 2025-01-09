@@ -8,13 +8,25 @@ A Software Developer with a background in programming Embedded Systems. In posse
 
 ### Software Developer
 
-> SPIE, Schiedam | 2021-01 - Present
+> Skopei, The Hague | 2023-09 - Present
+
+A team of roughly 8 developers that create and maintain applications to provider vehicle sharing capabilities for users and organisations.
+* Collaborating in a multidisciplinair team of testers, designers and software and hardware developers.
+* Maintaining, designing and developing a web application to administer vehicle sharing configuration.
+* Maintaining and developing a microservices based backend based on C# and Entity Framework.
+* Introducing multiple new backend services in both backend and devops aspects.
+* Maintaining and setting up Azure based devops services and pipelines.
+* Designing and developing a new web application to provide insights, maintain and configure digital smart locks and sensors.
+
+### Software Developer
+
+> SPIE, Schiedam | 2021-01 - 2023-09
 
 A team of approximately 10 people that build and maintains applications for the industrial and utility sector.
 * Building a desktop application that transforms pointcloud files to color images, depthmaps and other projected images.
 * Creating a 3D engine to draw and project shapes on panoramic depthmaps.
 * Researching and setting up an experimental Raspberry PI Kubernetes cluster.
-* Providing support to customers that have problems, report bugs or new features in an existing application.
+* Providing support to customers that have problems, report bugs or request new features in an existing application.
 * Modernising an application based on jQuery to React.
 
 ### System Engineer

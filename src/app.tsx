@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ThemeProvider } from '@mui/material/styles';
-import { useRecoilValue } from 'recoil';
+import { useAtomValue } from 'jotai';
 
 import { themeAtom } from '~atoms';
 import { HomePage } from '~pages';
@@ -13,14 +13,14 @@ import './app.css';
  * Setup the app and its routing
  */
 const App = () => {
+	const theme = useAtomValue(themeAtom);
+	
 	return (
-		<>
-			<ThemeProvider theme={AppTheme(useRecoilValue(themeAtom))}>
-				<div className='app'>
-					<HomePage />
-				</div>
-			</ThemeProvider>
-		</>
+		<ThemeProvider theme={AppTheme(theme)}>
+			<div className='app'>
+				<HomePage />
+			</div>
+		</ThemeProvider>
 	);
 };
 

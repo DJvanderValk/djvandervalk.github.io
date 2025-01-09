@@ -21,7 +21,7 @@ import i18next from 'i18next';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
-import { personalInformation } from '~constants';
+import personalInformation from '~docs/personalInfo.yaml';
 import { AppTheme } from '~themes';
 
 const ResumePdf = () => {
@@ -38,7 +38,7 @@ const ResumePdf = () => {
 			const file = await import(`~docs/resume_experience_${i18next.language}.md`);
 			setResumeFile(file.default);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 

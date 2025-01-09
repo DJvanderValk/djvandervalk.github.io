@@ -14,7 +14,8 @@ import {
 	Public as PublicIcon,
 	School as SchoolIcon,
 	Wc as WcIcon,
-	Work as WorkIcon
+	Work,
+	Work as WorkIcon,
 } from '@mui/icons-material';
 import {
 	Box,
@@ -26,13 +27,13 @@ import {
 	Link,
 	Stack,
 	Typography,
-	useTheme
+	useTheme,
 } from '@mui/material';
 import i18next from 'i18next';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
-import { personalInformation } from '~constants';
+import personalInformation from '~docs/personalInfo.yaml';
 
 const Resume = () => {
 	const { t } = useTranslation('general');
@@ -46,76 +47,47 @@ const Resume = () => {
 
 	const loadFile = async () => {
 		try {
-			const file = await import(`~docs/resume_experience_${i18next.language}.md`);
+			const file = await import(
+				`~docs/resume_experience_${i18next.language}.md?raw`
+			);
+			console.log(file);
 			setResumeFile(file.default);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
-
-	const profile = [
-		{
-			key: (new Date(personalInformation.profile.dateOfBirth)).toLocaleDateString(
-				'nl-NL', { year: 'numeric', month: 'long', day: 'numeric' }
-			),
-			icon: <CakeIcon fontSize='small' />
-		},
-		{ key: personalInformation.profile.address.city, icon: <HomeIcon fontSize='small' /> },
-		{ key: t(personalInformation.profile.citizenship), icon: <FlagIcon fontSize='small' /> },
-		{ key: t(personalInformation.profile.gender), icon: <WcIcon fontSize='small' /> },
-		{
-			key: t(personalInformation.profile.phoneNumber),
-			icon: <PhoneIcon fontSize='small' />,
-			href: `tel:${personalInformation.profile.phoneNumber.replace(/[ ]/g, '')}`
-		},
-		{
-			key: t(personalInformation.profile.mail),
-			icon: <MailIcon fontSize='small' />,
-			href: `mailto:${personalInformation.profile.mail}`
-		},
-		// {
-		// 	key: t(personalInformation.profile.github),
-		// 	icon: <GitHubIcon fontSize='small' />,
-		// 	href: `https://github.com/${personalInformation.profile.github}`
-		// }
-	];
 
 	const headerMapping = {
 		'career-profile': {
 			key: 'careerProfile',
-			icon: <PersonIcon />
+			icon: <PersonIcon />,
 		},
 		'working-experience': {
 			key: 'workingExperience',
-			icon: <WorkIcon />
+			icon: <WorkIcon />,
 		},
-		'education': {
+		education: {
 			key: 'education',
-			icon: <SchoolIcon />
+			icon: <SchoolIcon />,
 		},
-		'courses': {
+		courses: {
 			key: 'courses',
-			icon: <LocalLibraryIcon />
+			icon: <LocalLibraryIcon />,
 		},
-		'projects': {
+		projects: {
 			key: 'projects',
-			icon: <ArchitectureIcon />
+			icon: <ArchitectureIcon />,
 		},
 		'other-experiences': {
 			key: 'otherExperiences',
-			icon: <PublicIcon />
+			icon: <PublicIcon />,
 		},
 	};
 
 	const [expanded, setExpanded] = React.useState<{ [id: number]: boolean }>({});
 
 	const headerPanel = (
-		<Box
-			width='100%'
-			display='flex'
-			flexDirection='column'
-			alignItems='center'
-		>
+		<Box width='100%' display='flex' flexDirection='column' alignItems='center'>
 			<Stack
 				direction={{ xs: 'row', sm: 'column' }}
 				alignItems='center'
@@ -136,209 +108,309 @@ const Resume = () => {
 		</Box>
 	);
 
-	const sidePanel = (
-		<Stack spacing={4} color='white'>
-			<Box>
-				{profile.map((el, i) =>
-					<Stack key={i} spacing={2} direction='row' alignItems='center'>
-						{el.icon}
-						{el.href ?
-							<Link
-								color='inherit'
-								variant='body1'
-								underline='hover'
-								href={el.href}
+	const mainPanel = resumeFile && (
+		<Markdown
+			options={{
+				createElement(tag: string, props: any, children: any) {
+					if (tag === 'h1') {
+						return;
+					} else if (tag === 'h2') {
+						return (
+							<Stack
+								spacing={1}
+								direction='row'
+								pt='40px'
+								pb={props.id === 'career-profile' ? '10px' : 0}
 							>
-								{el.key}
-							</Link> :
-							<Typography variant='body1'>{el.key}</Typography>
-						}
-					</Stack>
-				)}
-			</Box>
-
-			<Box>
-				<Typography variant='h3' textTransform='uppercase' pb='10px'>
-					{t('languages')}
-				</Typography>
-				{personalInformation.languages.map((el, i) =>
-					<Stack key={i} direction='row' spacing={1}>
-						<Typography variant='body1'>{t(el.key)}</Typography>
-						<Typography variant='body1' color='textSecondary'>({t(el.level)})</Typography>
-					</Stack>
-				)}
-			</Box>
-
-			<Box>
-				<Typography variant='h3' textTransform='uppercase' pb='10px'>
-					{t('skills')}
-				</Typography>
-				<Stack spacing={1} pt='8px'>
-					{personalInformation.skills.info.map((el, i) =>
-						<Stack key={i} direction='column' width='auto'>
-							<Typography variant='body1'>
-								{el.key}
-							</Typography>
-							<LinearProgress
+								{headerMapping[props.id as keyof typeof headerMapping].icon}
+								<Typography variant={tag} color='primary'>
+									{children}
+								</Typography>
+							</Stack>
+						);
+					} else if (tag === 'h3') {
+						return (
+							<Typography
+								{...props}
+								variant={tag}
 								color='secondary'
-								variant='determinate'
-								value={el.level * 100}
-								sx={{ width: '100%' }}
-							/>
-							{/* <Box mt='5px'>
-								{el.keywords && el.keywords.map((keyword, i) =>
-									<Chip label={keyword} variant='filled' sx={{ m: '1px'}} />
+								pt='30px'
+								pb='10px'
+							>
+								{children}
+							</Typography>
+						);
+					} else if (tag === 'p') {
+						return (
+							<Typography {...props} variant='body1'>
+								{children}
+							</Typography>
+						);
+					} else if (tag === 'ul' && Array.isArray(children)) {
+						return (
+							<Box component='ul' pl='16px' sx={{ marginBlockEnd: 0 }}>
+								{children.map((el, i) => (
+									<Typography key={i} {...el.props} component='li'>
+										{el.props.children[0]}
+									</Typography>
+								))}
+							</Box>
+						);
+					} else if (tag === 'blockquote') {
+						const info = children[0].props.children[0].split(' | ');
+
+						return (
+							<Box
+								display='flex'
+								justifyContent='space-between'
+								pt='10px'
+								pb='10px'
+							>
+								<Typography variant='body1' color='textSecondary' flex={1}>
+									{info[0]}
+								</Typography>
+								{info.length > 1 && (
+									<Typography variant='body1' color='textSecondary' pl='4px'>
+										{info[1]}
+									</Typography>
 								)}
-							</Box> */}
-						</Stack>
-					)}
-				</Stack>
-			</Box>
+							</Box>
+						);
+					} else if (tag === 'Collapse') {
+						const temp: { [key: number]: boolean } = {};
+						temp[props.key] = !expanded[props.key];
 
-			<Box mt='10px'>
-				{personalInformation.skills.keywords.map((keyword, i) =>
-					<Chip
-						key={i}
-						label={keyword}
-						variant='filled'
-						size='medium'
-						sx={{ color: 'white', m: '1px' }}
-					/>
-				)}
-			</Box>
-
-			<Box>
-				<Typography variant='h3' textTransform='uppercase' pb='10px'>
-					{t('interests')}
-				</Typography>
-				{personalInformation.interests.map((el, i) =>
-					<Typography key={i} variant='body1'>{t(el)}</Typography>
-				)}
-			</Box>
-		</Stack>
-	);
-
-	const mainPanel = (
-		<>
-			{resumeFile &&
-				<Markdown
-					options={{
-						createElement(tag: string, props: any, children: any) {
-							if (tag === 'h1') {
-								return;
-							} else if (tag === 'h2') {
-								return (
-									<Stack
-										spacing={1} direction='row' pt='40px'
-										pb={props.id === 'career-profile' ? '10px' : 0}
-									>
-										{headerMapping[props.id as keyof typeof headerMapping].icon}
-										<Typography variant={tag} color='primary'>
-											{children}
-										</Typography>
-									</Stack>
-								);
-							} else if (tag === 'h3') {
-								return (
-									<Typography {...props} variant={tag} color='secondary' pt='30px' pb='10px'>
-										{children}
+						return (
+							<>
+								<Button
+									onClick={() => setExpanded({ ...expanded, ...temp })}
+									sx={{
+										textTransform: 'capitalize',
+										width: '100%',
+										mt: '15px',
+									}}
+									endIcon={
+										<ExpandMoreIcon
+											sx={{
+												color: 'textSecondary',
+												transform: !expanded[props.key]
+													? 'rotate(0deg)'
+													: 'rotate(180deg)',
+												transition: theme.transitions.create('transform', {
+													duration: theme.transitions.duration.shortest,
+												}),
+											}}
+										/>
+									}
+								>
+									<Typography width='100%' color='primary'>
+										{t(!expanded[props.key] ? 'seeMore' : 'seeLess')}
 									</Typography>
-								);
-							} else if (tag === 'p') {
-								return (
-									<Typography {...props} variant='body1'>
-										{children}
-									</Typography>
-								);
-							} else if (tag === 'ul' && Array.isArray(children)) {
-								return (
-									<Box component='ul' pl='16px' sx={{ marginBlockEnd: 0 }}>
-										{children.map((el, i) =>
-											<Typography key={i} {...el.props} component='li'>
-												{el.props.children[0]}
-											</Typography>
-										)}
-									</Box>
-								);
-							} else if (tag === 'blockquote') {
-								const info = children[0].props.children[0].split(' | ');
+								</Button>
+								<Collapse in={expanded[props.key]}>
+									{React.createElement(tag, props, children)}
+								</Collapse>
+							</>
+						);
+					}
 
-								return (
-									<Box display='flex' justifyContent='space-between' pt='10px' pb='10px'>
-										<Typography variant='body1' color='textSecondary' flex={1}>
-											{info[0]}
-										</Typography>
-										{info.length > 1 &&
-											<Typography variant='body1' color='textSecondary' pl='4px'>
-												{info[1]}
-											</Typography>
-										}
-									</Box>
-								);
-							} else if (tag === 'Collapse') {
-								const temp: { [key: number]: boolean } = {};
-								temp[props.key] = !expanded[props.key];
-								return (
-									<>
-										<Button
-											onClick={() => setExpanded({ ...expanded, ...temp })}
-											sx={{ textTransform: 'capitalize', width: '100%', mt: '15px' }}
-											endIcon={
-												<ExpandMoreIcon
-													sx={{
-														color: 'textSecondary',
-														transform: !expanded[props.key] ? 'rotate(0deg)' : 'rotate(180deg)',
-														transition: theme.transitions.create('transform', {
-															duration: theme.transitions.duration.shortest,
-														})
-													}}
-												/>
-											}
-										>
-											<Typography width='100%' color='primary'>
-												{t(!expanded[props.key] ? 'seeMore' : 'seeLess')}
-											</Typography>
-										</Button>
-										<Collapse in={expanded[props.key]}>{React.createElement(tag, props, children)}</Collapse>
-									</>
-								);
-							}
-
-							return React.createElement(tag, props, children);
-						}
-					}}
-				>
-					{resumeFile}
-				</Markdown>
-			}
-		</>
+					return React.createElement(tag, props, children);
+				},
+			}}
+		>
+			{resumeFile}
+		</Markdown>
 	);
 
 	return (
-		<Grid container direction='row-reverse' >
+		<Grid container direction='row-reverse'>
 			<Grid
-				container item
+				container
+				item
 				direction='column'
-				xs={12} sm='auto'
+				xs={12}
+				sm='auto'
 				maxWidth={{ sm: '300px' }}
 			>
-				<Grid item bgcolor='#0e786d' /* */ padding='30px'>
+				<Grid item bgcolor='#0e786d' padding='30px'>
 					{headerPanel}
 				</Grid>
-				<Grid item bgcolor='#1fad9f' /*'#177e4b'*/ padding='30px' xs>
-					{sidePanel}
+				<Grid item bgcolor='#1fad9f' padding='30px' xs>
+					<SidePanel />
 				</Grid>
 			</Grid>
 			<Grid
 				item
-				xs={12} sm
+				xs={12}
+				sm
 				paddingX={{ xs: '18px', sm: '30px', md: '60px' }}
 				paddingY={{ xs: '25px' }}
-				// padding={{ sm: '30px', md: '60px' }}
 			>
+				{/* <ResumeTimeline /> */}
 				{mainPanel}
 			</Grid>
 		</Grid>
+	);
+};
+
+const SidePanel = () => {
+	const { t } = useTranslation('general');
+
+	const profile = [
+		{
+			key: new Date(personalInformation.profile.dateOfBirth).toLocaleDateString(
+				'nl-NL',
+				{ year: 'numeric', month: 'long', day: 'numeric' },
+			),
+			icon: <CakeIcon fontSize='small' />,
+		},
+		{
+			key: personalInformation.profile.address.city,
+			icon: <HomeIcon fontSize='small' />,
+		},
+		{
+			key: t(personalInformation.profile.citizenship),
+			icon: <FlagIcon fontSize='small' />,
+		},
+		{
+			key: t(personalInformation.profile.gender),
+			icon: <WcIcon fontSize='small' />,
+		},
+		{
+			key: t(personalInformation.profile.phoneNumber),
+			icon: <PhoneIcon fontSize='small' />,
+			href: `tel:${personalInformation.profile.phoneNumber.replace(/[ ]/g, '')}`,
+		},
+		{
+			key: t(personalInformation.profile.mail),
+			icon: <MailIcon fontSize='small' />,
+			href: `mailto:${personalInformation.profile.mail}`,
+		},
+		{
+			key: t(personalInformation.profile.github),
+			icon: <GitHubIcon fontSize='small' />,
+			href: `https://github.com/${personalInformation.profile.github}`,
+		},
+	];
+
+	const ProfileBox = () => (
+		<Stack>
+			{profile.map((el, i) => (
+				<Stack
+					key={i}
+					spacing={2}
+					direction='row'
+					sx={{ alignItems: 'center' }}
+				>
+					{el.icon}
+					{el.href ? (
+						<Link
+							color='inherit'
+							variant='body1'
+							underline='hover'
+							href={el.href}
+						>
+							{el.key}
+						</Link>
+					) : (
+						<Typography variant='body1'>{el.key}</Typography>
+					)}
+				</Stack>
+			))}
+		</Stack>
+	);
+
+	const LanguagesBox = () => (
+		<Stack>
+			<Typography variant='h3' textTransform='uppercase' pb='10px'>
+				{t('languages')}
+			</Typography>
+			{personalInformation.languages.map((el, i) => (
+				<Stack key={i} direction='row' spacing={1}>
+					<Typography variant='body1'>{t(el.key)}</Typography>
+					<Typography variant='body1' color='textSecondary'>
+						({t(el.level)})
+					</Typography>
+				</Stack>
+			))}
+		</Stack>
+	);
+
+	const SkillsBox = () => (
+		<Stack>
+			<Typography variant='h3' textTransform='uppercase' pb='10px'>
+				{t('skills')}
+			</Typography>
+			<Stack spacing={1} pt='8px'>
+				{personalInformation.skills.info.map((el, i) => (
+					<Stack key={i} direction='column' width='auto'>
+						<Typography variant='body1'>{el.key}</Typography>
+						<LinearProgress
+							color='secondary'
+							variant='determinate'
+							value={el.level * 100}
+							sx={{ width: '100%' }}
+						/>
+					</Stack>
+				))}
+			</Stack>
+		</Stack>
+	);
+
+	const KeywordsBox = () => (
+		<Box mt='10px'>
+			{personalInformation.skills.keywords.map((keyword, i) => {
+				if (typeof keyword === 'string') {
+					return (
+						<Chip
+							key={i}
+							label={keyword}
+							variant='filled'
+							size='medium'
+							sx={{ color: 'white', m: '1px' }}
+						/>
+					);
+				}
+
+				return (
+					<>
+						<Typography sx={{ pt: 2, pb: 1 }}>{keyword.key}</Typography>
+						{keyword.keywords.map((el, j) => (
+							<Chip
+								key={j}
+								label={el}
+								variant='filled'
+								size='medium'
+								sx={{ color: 'white', m: '1px' }}
+							/>
+						))}
+					</>
+				);
+			})}
+		</Box>
+	);
+
+	const InterestsBox = () => (
+		<Box>
+			<Typography variant='h3' textTransform='uppercase' pb='10px'>
+				{t('interests')}
+			</Typography>
+			{personalInformation.interests.map((el, i) => (
+				<Typography key={i} variant='body1'>
+					{t(el)}
+				</Typography>
+			))}
+		</Box>
+	);
+
+	return (
+		<Stack spacing={4} color='white'>
+			<ProfileBox />
+			<LanguagesBox />
+			<SkillsBox />
+			<KeywordsBox />
+			<InterestsBox />
+		</Stack>
 	);
 };
 

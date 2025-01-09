@@ -12,7 +12,18 @@ Een Software Developer met een achtergrond in het programmeren van Embedded Syst
 
 ### Software Developer
 
-> SPIE, Schiedam | 2021-01 - Heden
+> Skopei, Den Haag | 2023-09 - Heden
+
+Een team van ongeveer 8 developers die voertuig deelsystemen bouwen en onderhouden voor gebruikers en organisaties.
+* Samenwerken in een multidisciplinair team van testers, designers en software and hardware ontwikkelaars.
+* Het onderhouden, ontwerpen en ontwikkelen van een web applicatie om het administreren van voertuig deel configuraties mogelijk te maken.
+* Onderhouden en ontwikkelen van een microservice backend gebaseerd op C# en Entity Framework.
+* Introduceren van meerdere backend applicaties op het gebied van backend en devops werkzaamheden.
+* Het ontwerpen en ontwikkelen van een nieuwe web applicatie om het inzichtelijk onderhouden en configureren van digitale slimme sloten en sensoren mogelijk te maken.
+
+### Software Developer
+
+> SPIE, Schiedam | 2021-01 - 2023-09
 
 Team van ongeveer 10 personen die applicaties bouwen en onderhouden voor de industriële en utiliteitssector. 
 * Het bouwen van een desktop applicatie die puntwolken bestanden omzet naar kleurenafbeeldingen, dieptemappen en overige geprojecteerde afbeeldingen.

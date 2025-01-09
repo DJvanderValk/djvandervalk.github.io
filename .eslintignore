@@ -1,7 +1,0 @@
-node-modules
-dist
-public
-
-webpack.*.js
-
-**/devops

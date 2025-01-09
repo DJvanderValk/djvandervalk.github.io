@@ -18,7 +18,9 @@ interface SaveAsPdfButtonProps extends ButtonProps {
 	visible: boolean
 }
 
-const SaveAsPdfButton = (props: SaveAsPdfButtonProps) => {
+const SaveAsPdfButton = ({
+	visible = true
+}: SaveAsPdfButtonProps) => {
 	const { t } = useTranslation('general');
 	
 	const saveAsPdfClick = () => {
@@ -46,7 +48,7 @@ const SaveAsPdfButton = (props: SaveAsPdfButtonProps) => {
 		});
 	};
 	
-	if(!props.visible) {
+	if(!visible) {
 		return <Box></Box>;
 	}
 
@@ -58,10 +60,6 @@ const SaveAsPdfButton = (props: SaveAsPdfButtonProps) => {
 			{t('saveAsPdf')}
 		</Button>
 	);
-};
-
-SaveAsPdfButton.defaultProps = {
-	visible: true
 };
 
 export default SaveAsPdfButton;
