@@ -50,7 +50,6 @@ const Resume = () => {
 			const file = await import(
 				`~docs/resume_experience_${i18next.language}.md?raw`
 			);
-			console.log(file);
 			setResumeFile(file.default);
 		} catch (error) {
 			console.error(error);
@@ -286,11 +285,11 @@ const SidePanel = () => {
 			icon: <MailIcon fontSize='small' />,
 			href: `mailto:${personalInformation.profile.mail}`,
 		},
-		{
-			key: t(personalInformation.profile.github),
-			icon: <GitHubIcon fontSize='small' />,
-			href: `https://github.com/${personalInformation.profile.github}`,
-		},
+		// {
+		// 	key: t(personalInformation.profile.github),
+		// 	icon: <GitHubIcon fontSize='small' />,
+		// 	href: `https://github.com/${personalInformation.profile.github}`,
+		// },
 	];
 
 	const ProfileBox = () => (

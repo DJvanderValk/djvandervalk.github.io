@@ -34,18 +34,20 @@ const SaveAsPdfButton = ({
 			</Box>
 		);
 		
-		doc.html(pdfEl, {
-			callback: () => {
-				doc.save('resume-dennisvdvalk.pdf');
-			},
-			html2canvas: { width: 1060, scale: 0.43 },
-			margin: [10, 10, 10, 10],
-			autoPaging: 'text',
-			x: 0,
-			y: 0,
-			width: 1060,
-			windowWidth: 1060
-		});
+		const timeout = setTimeout(() => {
+			doc.html(pdfEl, {
+				callback: () => {
+					doc.save('resume-dennisvdvalk.pdf');
+				},
+				html2canvas: { width: 1060, scale: 0.35 },
+				margin: [12, 50, 12, 50],
+				autoPaging: 'text',
+				x: 0,
+				y: 0,
+				width: 1060,
+				windowWidth: 1060
+			});
+		}, 500);
 	};
 	
 	if(!visible) {

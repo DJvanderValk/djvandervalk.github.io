@@ -5,7 +5,7 @@ import {
 	Home as HomeIcon,
 	Mail as MailIcon,
 	Phone as PhoneIcon,
-	Wc as WcIcon
+	Wc as WcIcon,
 } from '@mui/icons-material';
 import {
 	Box,
@@ -15,7 +15,7 @@ import {
 	LinearProgress,
 	Stack,
 	ThemeProvider,
-	Typography
+	Typography,
 } from '@mui/material';
 import i18next from 'i18next';
 import Markdown from 'markdown-to-jsx';
@@ -35,7 +35,9 @@ const ResumePdf = () => {
 
 	const loadFile = async () => {
 		try {
-			const file = await import(`~docs/resume_experience_${i18next.language}.md`);
+			const file = await import(
+				`~docs/resume_experience_${i18next.language}.md?raw`
+			);
 			setResumeFile(file.default);
 		} catch (error) {
 			console.error(error);
@@ -44,9 +46,10 @@ const ResumePdf = () => {
 
 	const profile = [
 		{
-			key: (new Date(personalInformation.profile.dateOfBirth)).toLocaleDateString(
-				'nl-NL', { year: 'numeric', month: 'long', day: 'numeric' }
-			)
+			key: new Date(personalInformation.profile.dateOfBirth).toLocaleDateString(
+				'nl-NL',
+				{ year: 'numeric', month: 'long', day: 'numeric' },
+			),
 		},
 		{ key: personalInformation.profile.address.city },
 		{ key: t(personalInformation.profile.citizenship) },
@@ -57,12 +60,7 @@ const ResumePdf = () => {
 	];
 
 	const headerPanel = (
-		<Box
-			width='100%'
-			display='flex'
-			flexDirection='column'
-			alignItems='center'
-		>
+		<Box width='100%' display='flex' flexDirection='column' alignItems='center'>
 			<Stack
 				direction={{ xs: 'row', sm: 'column' }}
 				alignItems='center'
@@ -82,21 +80,25 @@ const ResumePdf = () => {
 	const sidePanel = (
 		<Stack spacing={3}>
 			<Box>
-				{profile.map((el, i) =>
-					<Typography key={i} variant='body1'>{el.key}</Typography>
-				)}
+				{profile.map((el, i) => (
+					<Typography key={i} variant='body1'>
+						{el.key}
+					</Typography>
+				))}
 			</Box>
 
 			<Box>
 				<Typography variant='h3' textTransform='uppercase' pb='10px'>
 					{t('languages')}
 				</Typography>
-				{personalInformation.languages.map((el, i) =>
+				{personalInformation.languages.map((el, i) => (
 					<Stack key={i} direction='row' spacing={1}>
 						<Typography variant='body1'>{t(el.key)}</Typography>
-						<Typography variant='body1' color='textSecondary'>({t(el.level)})</Typography>
+						<Typography variant='body1' color='textSecondary'>
+							({t(el.level)})
+						</Typography>
 					</Stack>
-				)}
+				))}
 			</Box>
 
 			<Box>
@@ -104,11 +106,9 @@ const ResumePdf = () => {
 					{t('skills')}
 				</Typography>
 				<Stack spacing={1} pt='8px'>
-					{personalInformation.skills.info.map((el, i) =>
+					{personalInformation.skills.info.map((el, i) => (
 						<Stack key={i} direction='column' width='auto'>
-							<Typography variant='body1'>
-								{el.key}
-							</Typography>
+							<Typography variant='body1'>{el.key}</Typography>
 							<LinearProgress
 								color='secondary'
 								variant='determinate'
@@ -116,106 +116,139 @@ const ResumePdf = () => {
 								sx={{ width: '100%' }}
 							/>
 						</Stack>
-					)}
+					))}
 				</Stack>
 			</Box>
-			
+
 			<Box mt='10px'>
-				{personalInformation.skills.keywords.map((keyword, i) =>
-					<Chip
-						key={i}
-						label={keyword}
-						variant='outlined'
-						size='medium'
-						sx={{ m: '1px'}}
-					/>
-				)}
+				{personalInformation.skills.keywords.map((keyword, i) => {
+					if (typeof keyword === 'string') {
+						return (
+							<Chip
+								key={i}
+								label={keyword}
+								variant='outlined'
+								size='medium'
+								sx={{ m: '1px' }}
+							/>
+						);
+					}
+
+					return (
+						<>
+							<Typography sx={{ pt: 2, pb: 1 }}>{keyword.key}</Typography>
+							{keyword.keywords.map((el, j) => (
+								<Chip
+									key={j}
+									label={el}
+									variant='outlined'
+									size='medium'
+									sx={{ m: '1px' }}
+								/>
+							))}
+						</>
+					);
+				})}
 			</Box>
 
 			<Box>
 				<Typography variant='h3' textTransform='uppercase' pb='10px'>
 					{t('interests')}
 				</Typography>
-				{personalInformation.interests.map((el, i) =>
-					<Typography key={i} variant='body1'>{t(el)}</Typography>
-				)}
+				{personalInformation.interests.map((el, i) => (
+					<Typography key={i} variant='body1'>
+						{t(el)}
+					</Typography>
+				))}
 			</Box>
 		</Stack>
 	);
 
-	const mainPanel = (
-		<>
-			{resumeFile &&
-				<Markdown
-					options={{
-						createElement(tag: string, props: any, children: any) {
-							if (tag === 'h1' || tag === 'Collapse') {
-								return;
-							} else if (tag === 'h2') {
-								return (
+	const mainPanel = resumeFile && (
+		<Markdown
+			options={{
+				createElement(tag: string, props: any, children: any) {
+					if (tag === 'h1' || tag === 'Collapse') {
+						return;
+					} else if (tag === 'h2') {
+						return (
+							<Typography
+								variant={tag}
+								color='primary'
+								pt='30px'
+								pb={props.id === 'career-profile' ? '10px' : 0}
+							>
+								{children}
+							</Typography>
+						);
+					} else if (tag === 'h3') {
+						return (
+							<Typography
+								{...props}
+								variant={tag}
+								color='secondary'
+								pt='15px'
+								pb='8px'
+							>
+								{children}
+							</Typography>
+						);
+					} else if (tag === 'p') {
+						return (
+							<Typography {...props} variant='body1'>
+								{children}
+							</Typography>
+						);
+					} else if (tag === 'ul' && Array.isArray(children)) {
+						return (
+							<Box component='ul' pl='16px' sx={{ marginBlockEnd: 0 }}>
+								{children.map((el, i) => (
+									<Typography key={i} {...el.props} component='li'>
+										{el.props.children[0]}
+									</Typography>
+								))}
+							</Box>
+						);
+					} else if (tag === 'blockquote') {
+						const info = children[0].props.children[0].split(' | ');
+
+						return (
+							<Box
+								display='flex'
+								justifyContent='space-between'
+								pt='10px'
+								pb='10px'
+							>
+								<Typography variant='body1' color='textSecondary' flex={1}>
+									{info[0]}
+								</Typography>
+								{info.length > 1 && (
 									<Typography
-										variant={tag}
-										color='primary'
-										pt='30px'
-										pb={props.id === 'career-profile' ? '10px' : 0}
+										variant='body1'
+										color='textSecondary'
+										pl='4px'
 									>
-										{children}
+										{info[1]}
 									</Typography>
-								);
-							} else if (tag === 'h3') {
-								return (
-									<Typography {...props} variant={tag} color='secondary' pt='15px' pb='8px'>
-										{children}
-									</Typography>
-								);
-							} else if (tag === 'p') {
-								return (
-									<Typography {...props} variant='body1'>
-										{children}
-									</Typography>
-								);
-							} else if (tag === 'ul' && Array.isArray(children)) {
-								return (
-									<Box component='ul' pl='16px' sx={{ marginBlockEnd: 0 }}>
-										{children.map((el, i) =>
-											<Typography key={i} {...el.props} component='li'>
-												{el.props.children[0]}
-											</Typography>
-										)}
-									</Box>
-								);
-							} else if (tag === 'blockquote') {
-								const info = children[0].props.children[0].split(' | ');
+								)}
+							</Box>
+						);
+					}
 
-								return (
-									<Box display='flex' justifyContent='space-between' pt='10px' pb='10px'>
-										<Typography variant='body1' color='textSecondary' flex={1}>
-											{info[0]}
-										</Typography>
-										{info.length > 1 &&
-											<Typography variant='body1' color='textSecondary' pl='4px'>
-												{info[1]}
-											</Typography>
-										}
-									</Box>
-								);
-							}
-
-							return React.createElement(tag, props, children);
-						}
-					}}
-				>
-					{resumeFile}
-				</Markdown>
-			}
-		</>
+					return React.createElement(tag, props, children);
+				},
+			}}
+		>
+			{resumeFile}
+		</Markdown>
 	);
 
 	return (
 		<ThemeProvider theme={AppTheme('light')}>
 			<Grid container direction='row' border='1px'>
 				<Grid
-					container item
+					container
+					item
 					direction='column'
 					xs={4}
 					maxWidth={{ sm: '300px' }}
@@ -228,8 +261,8 @@ const ResumePdf = () => {
 						{sidePanel}
 					</Grid>
 				</Grid>
-				<Grid item >
-					<Divider orientation='vertical'/>
+				<Grid item>
+					<Divider orientation='vertical' />
 				</Grid>
 				<Grid item p='18px' xs={8}>
 					{mainPanel}
