@@ -3,23 +3,25 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
+import { LanguageEnum } from '~enums';
+
 i18n
 	.use(initReactI18next)
 	.use(Backend)
 	.use(LanguageDetector)
 	.init({
 		backend: {
-			loadPath: '/locales/{{lng}}/{{ns}}.json'
+			loadPath: '/locales/{{lng}}/{{ns}}.json',
 		},
 		fallbackLng: ['en'],
-		supportedLngs: ['en', 'nl'],
+		supportedLngs: Object.keys(LanguageEnum),
 		debug: process.env.NODE_ENV === 'development',
 		ns: ['general'],
 		defaultNS: 'general',
 		interpolation: {
-			escapeValue: false
+			escapeValue: false,
 		},
-		keySeparator: '.'
+		keySeparator: '.',
 	});
 
 export default i18n;

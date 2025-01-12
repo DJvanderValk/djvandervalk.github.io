@@ -13,5 +13,5 @@ root.render(
 		<BrowserRouter>
 			<App />
 		</BrowserRouter>
-	</React.Suspense>
+	</React.Suspense>,
 );

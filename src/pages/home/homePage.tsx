@@ -1,17 +1,8 @@
 import * as React from 'react';
 
-import {
-	Box,
-	Paper,
-	Stack,
-	useTheme
-} from '@mui/material';
+import { Box, Paper, Stack, useTheme } from '@mui/material';
 
-import {
-	SaveAsPdfButton,
-	LanguageSelect,
-	ThemeSwitch
-} from '~components';
+import { SaveAsPdfButton, LanguageSelect, ThemeSwitch } from '~components';
 import { Resume } from '~features';
 
 const HomePage = () => {
@@ -22,7 +13,8 @@ const HomePage = () => {
 			display='flex'
 			justifyContent='center'
 			bgcolor={theme.palette.background.default}
-			width='100%' height='100%'
+			width={1}
+			height={1}
 			sx={{ overflowX: 'hidden' }}
 			padding={{ xs: 0, sm: 0, md: '30px' }}
 			boxSizing='border-box'
@@ -33,7 +25,7 @@ const HomePage = () => {
 					elevation={3}
 					sx={{
 						overflow: 'hidden',
-						borderRadius: { xs: 0, sm: 0, md: '8px' }
+						borderRadius: { xs: 0, sm: 0, md: '8px' },
 					}}
 				>
 					<Resume />
@@ -48,11 +40,8 @@ const HomePage = () => {
 					direction='row'
 					boxSizing='border-box'
 				>
-					<SaveAsPdfButton visible={true} />
-					<Stack
-						spacing='inherit'
-						direction='row'
-					>
+					<SaveAsPdfButton />
+					<Stack spacing='inherit' direction='row'>
 						<LanguageSelect color='primary' variant='standard' />
 						<ThemeSwitch />
 					</Stack>

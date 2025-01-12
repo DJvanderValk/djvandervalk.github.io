@@ -1,6 +1,6 @@
 enum LanguageEnum {
 	en = 'English',
-	nl = 'Nederlands'
+	nl = 'Nederlands',
 }
 
 export default LanguageEnum;

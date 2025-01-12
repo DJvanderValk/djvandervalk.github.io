@@ -5,21 +5,12 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
 
 // https://vitejs.dev/config/
-export default ({ mode, command }) => {
-	process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') };
+export default defineConfig((config) => {
+	process.env = { ...process.env, ...loadEnv('', process.cwd(), '') };
 
-	// if(command === 'serve') {
-	// 	console.log(command)
-	// };
-
-	return defineConfig({
-		assetsInclude: [
-			'**/*.md'
-		],
-		plugins: [
-			react(),
-			ViteYaml(),
-		],
+	return {
+		assetsInclude: ['**/*.md'],
+		plugins: [react(), ViteYaml()],
 		resolve: {
 			alias: {
 				'~assets': path.resolve(__dirname, 'src', 'assets'),
@@ -31,13 +22,14 @@ export default ({ mode, command }) => {
 				'~features': path.resolve(__dirname, 'src', 'features'),
 				'~hooks': path.resolve(__dirname, 'src', 'hooks'),
 				'~layouts': path.resolve(__dirname, 'src', 'layouts'),
+				'~lib': path.resolve(__dirname, 'src', 'lib'),
 				'~pages': path.resolve(__dirname, 'src', 'pages'),
 				'~services': path.resolve(__dirname, 'src', 'services'),
 				'~themes': path.resolve(__dirname, 'src', 'themes'),
-			}
+			},
 		},
 		server: {
-			port: parseInt(process.env.PORT)
-		}
-	});
-};
+			port: parseInt(process.env.PORT),
+		},
+	};
+});

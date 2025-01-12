@@ -4,13 +4,13 @@ import {
 	LightMode as LightModeIcon,
 	ModeNight as ModeNightIcon,
 } from '@mui/icons-material';
-import { Switch } from '@mui/material';
+import { Switch, SwitchProps } from '@mui/material';
 import { useAtom } from 'jotai';
 
 import { themeAtom } from '~atoms';
 import { ThemeEnum } from '~enums';
 
-const ThemeSwitch = () => {
+const ThemeSwitch = (switchProps: SwitchProps) => {
 	const [theme, setTheme] = useAtom(themeAtom);
 
 	/**
@@ -26,6 +26,7 @@ const ThemeSwitch = () => {
 
 	return (
 		<Switch
+			{...switchProps}
 			icon={<ModeNightIcon fontSize='small' />}
 			checkedIcon={<LightModeIcon fontSize='small' />}
 			checked={theme === ThemeEnum.Light}

@@ -15,12 +15,12 @@ const lightTheme: ThemeOptions = {
 		},
 		text: {
 			primary: 'rgba(0,0,0,0.87)',
-			secondary: 'rgba(0,0,0,0.6)'
+			secondary: 'rgba(0,0,0,0.6)',
 		},
 		background: {
-			default: '#F5F5F5'
-		}
-	}
+			default: '#F5F5F5',
+		},
+	},
 };
 
 export default lightTheme;

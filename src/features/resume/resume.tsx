@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
 	Architecture as ArchitectureIcon,
 	Cake as CakeIcon,
-	ExpandMore as ExpandMoreIcon,
 	Flag as FlagIcon,
 	GitHub as GitHubIcon,
 	Home as HomeIcon,
@@ -14,12 +13,10 @@ import {
 	Public as PublicIcon,
 	School as SchoolIcon,
 	Wc as WcIcon,
-	Work,
 	Work as WorkIcon,
 } from '@mui/icons-material';
 import {
 	Box,
-	Button,
 	Chip,
 	Collapse,
 	Grid,
@@ -27,28 +24,25 @@ import {
 	Link,
 	Stack,
 	Typography,
-	useTheme,
 } from '@mui/material';
-import i18next from 'i18next';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
+import { ExpandMoreButton } from '~components';
 import personalInformation from '~docs/personalInfo.yaml';
 
 const Resume = () => {
-	const { t } = useTranslation('general');
-	const theme = useTheme();
-
+	const { i18n } = useTranslation('general');
 	const [resumeFile, setResumeFile] = React.useState(null);
 
 	React.useEffect(() => {
 		loadFile();
-	}, [i18next.language]);
+	}, [i18n.language]);
 
 	const loadFile = async () => {
 		try {
 			const file = await import(
-				`~docs/resume_experience_${i18next.language}.md?raw`
+				`~docs/resume_experience_${i18n.language}.md?raw`
 			);
 			setResumeFile(file.default);
 		} catch (error) {
@@ -83,25 +77,25 @@ const Resume = () => {
 		},
 	};
 
-	const [expanded, setExpanded] = React.useState<{ [id: number]: boolean }>({});
+	const [expanded, setExpanded] = React.useState<Record<number, boolean>>({});
 
 	const headerPanel = (
-		<Box width='100%' display='flex' flexDirection='column' alignItems='center'>
+		<Box width={1} display='flex' flexDirection='column' alignItems='center'>
 			<Stack
 				direction={{ xs: 'row', sm: 'column' }}
 				alignItems='center'
 				justifyContent='center'
-				width='100%'
+				width={1}
 				color='white'
 			>
-				<Typography variant='h1' pr={{ xs: '10px', sm: 0 }}>
+				<Typography variant='h1' pr={{ xs: 1, sm: 0 }}>
 					{personalInformation.profile.firstName}
 				</Typography>
 				<Typography variant='h1'>
 					{personalInformation.profile.lastName}
 				</Typography>
 			</Stack>
-			<Typography variant='subtitle1' color='textSecondary' pt='8px'>
+			<Typography variant='subtitle1' color='textSecondary' pt={1}>
 				{personalInformation.profile.tagline}
 			</Typography>
 		</Box>
@@ -119,7 +113,7 @@ const Resume = () => {
 								spacing={1}
 								direction='row'
 								pt='40px'
-								pb={props.id === 'career-profile' ? '10px' : 0}
+								pb={props.id === 'career-profile' ? 1 : 0}
 							>
 								{headerMapping[props.id as keyof typeof headerMapping].icon}
 								<Typography variant={tag} color='primary'>
@@ -133,8 +127,8 @@ const Resume = () => {
 								{...props}
 								variant={tag}
 								color='secondary'
-								pt='30px'
-								pb='10px'
+								pt={4}
+								pb={1}
 							>
 								{children}
 							</Typography>
@@ -147,7 +141,7 @@ const Resume = () => {
 						);
 					} else if (tag === 'ul' && Array.isArray(children)) {
 						return (
-							<Box component='ul' pl='16px' sx={{ marginBlockEnd: 0 }}>
+							<Box component='ul' pl={2} sx={{ marginBlockEnd: 0 }}>
 								{children.map((el, i) => (
 									<Typography key={i} {...el.props} component='li'>
 										{el.props.children[0]}
@@ -162,50 +156,25 @@ const Resume = () => {
 							<Box
 								display='flex'
 								justifyContent='space-between'
-								pt='10px'
-								pb='10px'
+								sx={{ py: 1 }}
 							>
 								<Typography variant='body1' color='textSecondary' flex={1}>
 									{info[0]}
 								</Typography>
 								{info.length > 1 && (
-									<Typography variant='body1' color='textSecondary' pl='4px'>
+									<Typography variant='body1' color='textSecondary' pl={0.5}>
 										{info[1]}
 									</Typography>
 								)}
 							</Box>
 						);
 					} else if (tag === 'Collapse') {
-						const temp: { [key: number]: boolean } = {};
-						temp[props.key] = !expanded[props.key];
-
 						return (
 							<>
-								<Button
-									onClick={() => setExpanded({ ...expanded, ...temp })}
-									sx={{
-										textTransform: 'capitalize',
-										width: '100%',
-										mt: '15px',
-									}}
-									endIcon={
-										<ExpandMoreIcon
-											sx={{
-												color: 'textSecondary',
-												transform: !expanded[props.key]
-													? 'rotate(0deg)'
-													: 'rotate(180deg)',
-												transition: theme.transitions.create('transform', {
-													duration: theme.transitions.duration.shortest,
-												}),
-											}}
-										/>
-									}
-								>
-									<Typography width='100%' color='primary'>
-										{t(!expanded[props.key] ? 'seeMore' : 'seeLess')}
-									</Typography>
-								</Button>
+								<ExpandMoreButton
+									expanded={expanded[props.key]}
+									onExpand={(value) => setExpanded({ ...expanded, [props.key]: value })}
+								/>
 								<Collapse in={expanded[props.key]}>
 									{React.createElement(tag, props, children)}
 								</Collapse>
@@ -231,10 +200,10 @@ const Resume = () => {
 				sm='auto'
 				maxWidth={{ sm: '300px' }}
 			>
-				<Grid item bgcolor='#0e786d' padding='30px'>
+		<Grid item bgcolor='#0e786d' padding={4}>
 					{headerPanel}
 				</Grid>
-				<Grid item bgcolor='#1fad9f' padding='30px' xs>
+				<Grid item bgcolor='#1fad9f' padding={4} xs>
 					<SidePanel />
 				</Grid>
 			</Grid>
@@ -242,8 +211,8 @@ const Resume = () => {
 				item
 				xs={12}
 				sm
-				paddingX={{ xs: '18px', sm: '30px', md: '60px' }}
-				paddingY={{ xs: '25px' }}
+				paddingX={{ xs: 2, sm: 3, md: 7 }}
+				paddingY={{ xs: 4 }}
 			>
 				{/* <ResumeTimeline /> */}
 				{mainPanel}
@@ -276,20 +245,20 @@ const SidePanel = () => {
 			icon: <WcIcon fontSize='small' />,
 		},
 		{
-			key: t(personalInformation.profile.phoneNumber),
+			key: personalInformation.profile.phoneNumber,
 			icon: <PhoneIcon fontSize='small' />,
 			href: `tel:${personalInformation.profile.phoneNumber.replace(/[ ]/g, '')}`,
 		},
 		{
-			key: t(personalInformation.profile.mail),
+			key: personalInformation.profile.mail,
 			icon: <MailIcon fontSize='small' />,
 			href: `mailto:${personalInformation.profile.mail}`,
 		},
-		// {
-		// 	key: t(personalInformation.profile.github),
-		// 	icon: <GitHubIcon fontSize='small' />,
-		// 	href: `https://github.com/${personalInformation.profile.github}`,
-		// },
+		{
+			key: personalInformation.profile.github,
+			icon: <GitHubIcon fontSize='small' />,
+			href: `https://github.com/${personalInformation.profile.github}`,
+		},
 	];
 
 	const ProfileBox = () => (
@@ -302,7 +271,7 @@ const SidePanel = () => {
 					sx={{ alignItems: 'center' }}
 				>
 					{el.icon}
-					{el.href ? (
+					{el.href ?
 						<Link
 							color='inherit'
 							variant='body1'
@@ -311,9 +280,7 @@ const SidePanel = () => {
 						>
 							{el.key}
 						</Link>
-					) : (
-						<Typography variant='body1'>{el.key}</Typography>
-					)}
+					:	<Typography variant='body1'>{el.key}</Typography>}
 				</Stack>
 			))}
 		</Stack>
@@ -321,7 +288,7 @@ const SidePanel = () => {
 
 	const LanguagesBox = () => (
 		<Stack>
-			<Typography variant='h3' textTransform='uppercase' pb='10px'>
+			<Typography variant='h3' textTransform='uppercase' pb={1}>
 				{t('languages')}
 			</Typography>
 			{personalInformation.languages.map((el, i) => (
@@ -337,7 +304,7 @@ const SidePanel = () => {
 
 	const SkillsBox = () => (
 		<Stack>
-			<Typography variant='h3' textTransform='uppercase' pb='10px'>
+			<Typography variant='h3' textTransform='uppercase' pb={1}>
 				{t('skills')}
 			</Typography>
 			<Stack spacing={1} pt='8px'>
@@ -391,7 +358,7 @@ const SidePanel = () => {
 
 	const InterestsBox = () => (
 		<Box>
-			<Typography variant='h3' textTransform='uppercase' pb='10px'>
+			<Typography variant='h3' textTransform='uppercase' pb={1}>
 				{t('interests')}
 			</Typography>
 			{personalInformation.interests.map((el, i) => (

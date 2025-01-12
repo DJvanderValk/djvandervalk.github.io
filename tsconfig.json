@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
@@ -8,6 +9,8 @@
     "jsx": "react",
     "allowJs": true,
     "checkJs": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "paths": {
       "~atoms": ["./src/atoms/index.ts"],
@@ -22,6 +25,7 @@
       "~enums*": ["./src/enums*"],
       "~features": ["./src/features/index.ts"],
       "~features*": ["./src/features*"],
+      "~lib*": [".src/lib*"],
       "~pages": ["./src/pages/index.ts"],
       "~pages*": ["./src/pages*"],
       "~themes": ["./src/themes/index.ts"],

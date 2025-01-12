@@ -1,3 +1,4 @@
-export { default as SaveAsPdfButton } from './button/saveAsPdfButton';
-export { default as LanguageSelect } from './select/languageSelect';
-export { default as ThemeSwitch } from './switch/themeSwitch';
+export { default as SaveAsPdfButton } from './buttons/saveAsPdfButton';
+export { default as ExpandMoreButton } from './buttons/expandMoreButton';
+export { default as LanguageSelect } from './selects/languageSelect';
+export { default as ThemeSwitch } from './switches/themeSwitch';

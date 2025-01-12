@@ -60,12 +60,12 @@ const ResumePdf = () => {
 	];
 
 	const headerPanel = (
-		<Box width='100%' display='flex' flexDirection='column' alignItems='center'>
+		<Box width={1} display='flex' flexDirection='column' alignItems='center'>
 			<Stack
 				direction={{ xs: 'row', sm: 'column' }}
 				alignItems='center'
 				justifyContent='center'
-				width='100%'
+				width={1}
 			>
 				<Typography variant='h1' fontSize='1.5rem'>
 					{`${personalInformation.profile.firstName} ${personalInformation.profile.lastName}`}
@@ -88,7 +88,7 @@ const ResumePdf = () => {
 			</Box>
 
 			<Box>
-				<Typography variant='h3' textTransform='uppercase' pb='10px'>
+				<Typography variant='h3' textTransform='uppercase' pb={1}>
 					{t('languages')}
 				</Typography>
 				{personalInformation.languages.map((el, i) => (
@@ -102,10 +102,10 @@ const ResumePdf = () => {
 			</Box>
 
 			<Box>
-				<Typography variant='h3' textTransform='uppercase' pb='10px'>
+				<Typography variant='h3' textTransform='uppercase' pb={1}>
 					{t('skills')}
 				</Typography>
-				<Stack spacing={1} pt='8px'>
+				<Stack spacing={1} pt={1}>
 					{personalInformation.skills.info.map((el, i) => (
 						<Stack key={i} direction='column' width='auto'>
 							<Typography variant='body1'>{el.key}</Typography>
@@ -113,14 +113,14 @@ const ResumePdf = () => {
 								color='secondary'
 								variant='determinate'
 								value={el.level * 100}
-								sx={{ width: '100%' }}
+								sx={{ width: 1 }}
 							/>
 						</Stack>
 					))}
 				</Stack>
 			</Box>
 
-			<Box mt='10px'>
+			<Box mt={1}>
 				{personalInformation.skills.keywords.map((keyword, i) => {
 					if (typeof keyword === 'string') {
 						return (
@@ -152,7 +152,7 @@ const ResumePdf = () => {
 			</Box>
 
 			<Box>
-				<Typography variant='h3' textTransform='uppercase' pb='10px'>
+				<Typography variant='h3' textTransform='uppercase' pb={1}>
 					{t('interests')}
 				</Typography>
 				{personalInformation.interests.map((el, i) => (
@@ -175,8 +175,8 @@ const ResumePdf = () => {
 							<Typography
 								variant={tag}
 								color='primary'
-								pt='30px'
-								pb={props.id === 'career-profile' ? '10px' : 0}
+								pt={3}
+								pb={props.id === 'career-profile' ? 1 : 0}
 							>
 								{children}
 							</Typography>
@@ -187,8 +187,8 @@ const ResumePdf = () => {
 								{...props}
 								variant={tag}
 								color='secondary'
-								pt='15px'
-								pb='8px'
+								pt={2}
+								pb={1}
 							>
 								{children}
 							</Typography>
@@ -201,7 +201,7 @@ const ResumePdf = () => {
 						);
 					} else if (tag === 'ul' && Array.isArray(children)) {
 						return (
-							<Box component='ul' pl='16px' sx={{ marginBlockEnd: 0 }}>
+							<Box component='ul' pl={2} sx={{ marginBlockEnd: 0 }}>
 								{children.map((el, i) => (
 									<Typography key={i} {...el.props} component='li'>
 										{el.props.children[0]}
@@ -216,18 +216,13 @@ const ResumePdf = () => {
 							<Box
 								display='flex'
 								justifyContent='space-between'
-								pt='10px'
-								pb='10px'
+								sx={{ py: 1}}
 							>
 								<Typography variant='body1' color='textSecondary' flex={1}>
 									{info[0]}
 								</Typography>
 								{info.length > 1 && (
-									<Typography
-										variant='body1'
-										color='textSecondary'
-										pl='4px'
-									>
+									<Typography variant='body1' color='textSecondary' pl={0.5}>
 										{info[1]}
 									</Typography>
 								)}
@@ -253,18 +248,18 @@ const ResumePdf = () => {
 					xs={4}
 					maxWidth={{ sm: '300px' }}
 				>
-					<Grid item padding='30px'>
+					<Grid item padding={4}>
 						{headerPanel}
 					</Grid>
 					<Divider />
-					<Grid item pl='10px' pr='30px' py='18px' xs>
+					<Grid item pl={1} pr={4} py={2} xs>
 						{sidePanel}
 					</Grid>
 				</Grid>
 				<Grid item>
 					<Divider orientation='vertical' />
 				</Grid>
-				<Grid item p='18px' xs={8}>
+				<Grid item p={2} xs={8}>
 					{mainPanel}
 				</Grid>
 			</Grid>

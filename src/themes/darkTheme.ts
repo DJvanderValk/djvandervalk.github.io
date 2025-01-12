@@ -15,13 +15,13 @@ const darkTheme: ThemeOptions = {
 		},
 		background: {
 			default: '#121212',
-			paper: '#121212'
+			paper: '#121212',
 		},
 		text: {
 			primary: '#ffffff',
-			secondary: 'rgba(255, 255, 255, 0.7)'
-		}
-	}
+			secondary: 'rgba(255, 255, 255, 0.7)',
+		},
+	},
 };
 
 export default darkTheme;

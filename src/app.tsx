@@ -14,7 +14,7 @@ import './app.css';
  */
 const App = () => {
 	const theme = useAtomValue(themeAtom);
-	
+
 	return (
 		<ThemeProvider theme={AppTheme(theme)}>
 			<div className='app'>
