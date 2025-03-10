@@ -1,3 +1,3 @@
 # Readme
 
-Voor mijn cv
+The resume of Dennis. See `https://djvandervalk.github.io/`.
