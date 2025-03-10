@@ -12,7 +12,7 @@ A Software Developer with a background in programming Embedded Systems. In posse
 \r
 A team of roughly 8 developers that create and maintain applications to provider vehicle sharing capabilities for users and organisations.\r
 * Collaborating in a multidisciplinair team of testers, designers and software and hardware developers.\r
-* Maintaining, designing and developing a web application to administer vehicle sharing configuration.\r
+* Maintaining, designing and developing a React and Typescript based web application to administer vehicle sharing configuration.\r
 * Maintaining and developing a microservices based backend based on C# and Entity Framework.\r
 * Introducing multiple new backend services in both backend and devops aspects.\r
 * Maintaining and setting up Azure based devops services and pipelines.\r
