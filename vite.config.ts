@@ -22,7 +22,6 @@ export default defineConfig((config) => {
 				'~features': path.resolve(__dirname, 'src', 'features'),
 				'~hooks': path.resolve(__dirname, 'src', 'hooks'),
 				'~layouts': path.resolve(__dirname, 'src', 'layouts'),
-				'~lib': path.resolve(__dirname, 'src', 'lib'),
 				'~pages': path.resolve(__dirname, 'src', 'pages'),
 				'~services': path.resolve(__dirname, 'src', 'services'),
 				'~themes': path.resolve(__dirname, 'src', 'themes'),

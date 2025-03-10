@@ -16,7 +16,7 @@ Een Software Developer met een achtergrond in het programmeren van Embedded Syst
 
 Een team van ongeveer 8 developers die voertuig deelsystemen bouwen en onderhouden voor gebruikers en organisaties.
 * Samenwerken in een multidisciplinair team van testers, designers en software and hardware ontwikkelaars.
-* Het onderhouden, ontwerpen en ontwikkelen van een web applicatie om het administreren van voertuig deel configuraties mogelijk te maken.
+* Het onderhouden, ontwerpen en ontwikkelen van een op React en Typescript gebaseerde web applicatie om het administreren van voertuig deel configuraties mogelijk te maken.
 * Onderhouden en ontwikkelen van een microservice backend gebaseerd op C# en Entity Framework.
 * Introduceren van meerdere backend applicaties op het gebied van backend en devops werkzaamheden.
 * Het ontwerpen en ontwikkelen van een nieuwe web applicatie om het inzichtelijk onderhouden en configureren van digitale slimme sloten en sensoren mogelijk te maken.

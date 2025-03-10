@@ -25,7 +25,6 @@
       "~enums*": ["./src/enums*"],
       "~features": ["./src/features/index.ts"],
       "~features*": ["./src/features*"],
-      "~lib*": [".src/lib*"],
       "~pages": ["./src/pages/index.ts"],
       "~pages*": ["./src/pages*"],
       "~themes": ["./src/themes/index.ts"],

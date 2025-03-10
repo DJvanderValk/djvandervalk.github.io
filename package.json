@@ -1,7 +1,7 @@
 {
 	"name": "resume-react",
-	"version": "1.0.0",
 	"description": "Resume React project",
+	"version": "1.0.0",
 	"homepage": "https://djvandervalk.github.io",
 	"main": "src/index.js",
 	"scripts": {
